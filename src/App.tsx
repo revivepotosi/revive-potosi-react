@@ -1,15 +1,18 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import theme from './theme'
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { BrowserRouter } from 'react-router-dom';
+import theme from './theme';
 import Loader from './components/loader/Loader';
-import Museum from './feature/museum/container/Museum';
+import Navigation from './navigation/Navigation';
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Museum />
-      <Loader />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navigation />
+        <Loader />
+      </ThemeProvider>
+    </BrowserRouter>
   )
 }
 

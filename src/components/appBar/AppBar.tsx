@@ -15,6 +15,8 @@ import menu from '../../constants/menu';
 import userMenu from '../../constants/userMenu';
 import Logo from '../logo/Logo';
 import LanguageSelector from '../languageSelector/LanguageSelector';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../app/firebase';
 
 const AppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -33,6 +35,16 @@ const AppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const closeSession = async () => {
+    try {
+      await signOut(auth);
+    } catch(error: any) {
+      alert(error);
+    } finally {
+      setAnchorElUser(null);
+    }
   };
 
   return (
@@ -113,7 +125,7 @@ const AppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {userMenu.map((item) => (
-                <MenuItem key={item.name} onClick={handleCloseUserMenu}>
+                <MenuItem key={item.name} onClick={closeSession}>
                   <Typography textAlign="center">{item.name}</Typography>
                 </MenuItem>
               ))}

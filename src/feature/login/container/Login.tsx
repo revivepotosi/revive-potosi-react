@@ -1,4 +1,6 @@
-import { Alert, Box, Button, Container, TextField, Typography } from '@mui/material'
+import { useSelector } from 'react-redux';
+import { Alert, Box, Button, Container, TextField, Typography } from '@mui/material';
+import { RootState } from '../../../app/store';
 import bgLogin from '../../../assets/bg-login.png';
 import colors from '../../../style/colors';
 import LOGIN_STR from '../constants/loginStr';
@@ -7,6 +9,7 @@ import Logo from '../../../components/logo/Logo';
 import LanguageSelector from '../../../components/languageSelector/LanguageSelector';
 
 const Login = () => {
+  const language = useSelector((state: RootState) => state.language.language);
   const {
     loginData,
     handleLogin,
@@ -30,7 +33,7 @@ const Login = () => {
                 <LanguageSelector />
               </Box>
             </Box>
-            <Typography variant='h5' gutterBottom sx={{ color: colors.primary, textAlign: 'center', fontWeight: 'bold'}}>{LOGIN_STR.title}</Typography>
+            <Typography variant='h5' gutterBottom sx={{ color: colors.primary, textAlign: 'center', fontWeight: 'bold'}}>{LOGIN_STR[language.prefix].title}</Typography>
             <TextField
               required
               error={!isEmailValid}
@@ -41,7 +44,7 @@ const Login = () => {
               value={loginData.email}
               onChange={handleChange}
               onBlur={validateEmail}
-              label={LOGIN_STR.email_label}
+              label={LOGIN_STR[language.prefix].email_label}
               variant="outlined"
             />
             <TextField
@@ -54,16 +57,16 @@ const Login = () => {
               value={loginData.password}
               onChange={handleChange}
               onBlur={validatePassword}
-              label={LOGIN_STR.password_label}
+              label={LOGIN_STR[language.prefix].password_label}
               variant="outlined"
             />
             {showErrorAlert ? (
               <Alert variant="filled" severity="error">
-                {LOGIN_STR.error.email_password_invalid}
+                {LOGIN_STR[language.prefix].error.email_password_invalid}
               </Alert>
             ): null}
-            <Button type="submit" variant="contained">{LOGIN_STR.btn_login_label}</Button>
-            <Button variant="outlined">{LOGIN_STR.btn_forgot_password_label}</Button>
+            <Button type="submit" variant="contained">{LOGIN_STR[language.prefix].btn_login_label}</Button>
+            <Button variant="outlined">{LOGIN_STR[language.prefix].btn_forgot_password_label}</Button>
           </Box>
         </Box>
       </Container>
