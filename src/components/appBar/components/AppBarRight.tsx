@@ -8,9 +8,9 @@ import appBarRightStr from '../constants/appBarRightStr';
 
 const AppBarRight = () => {
   const {
-    anchorElUser,
-    handleOpenUserMenu,
-    handleCloseUserMenu,
+    anchor,
+    handleOpen,
+    handleClose,
     menuItems,
     goLogin,
     language,
@@ -21,11 +21,11 @@ const AppBarRight = () => {
       { auth.currentUser ? (
           <>
             <Tooltip title="Abrir ajustes">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpen} sx={{ p: 0 }}>
                 <Avatar sx={{ bgcolor: colors.secondary }} alt="User" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-            <AppBarDrawer items={menuItems} anchor='right' open={Boolean(anchorElUser)} onClose={handleCloseUserMenu} />
+            <AppBarDrawer items={menuItems} anchor='right' open={Boolean(anchor)} onClose={handleClose} />
           </>
         ) : (
           <Button

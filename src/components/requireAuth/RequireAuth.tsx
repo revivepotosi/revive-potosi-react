@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import RoutesNames from '../../constants/routesNames';
+import RouteNames from '../../constants/routeNames';
 
 interface Props {
   isAuthenticated: boolean;
@@ -8,7 +8,7 @@ interface Props {
 const RequireAuth = ({ isAuthenticated }: Props) => {
   const location = useLocation();
   if (!isAuthenticated) {
-    return <Navigate to={`/${RoutesNames.login}`} state={{ from: location }} replace />;
+    return <Navigate to={`/${RouteNames.login}`} state={{ from: location }} replace />;
   }
   return <Outlet />;
 };

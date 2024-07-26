@@ -1,12 +1,11 @@
 import { Container, Typography } from '@mui/material';
-import ChipGroup from '../../../components/chipGroup/ChipGroup';
 import colors from '../../../style/colors';
 
 interface Props {
     isAdmin?: boolean;
 };
 
-const HistoricalCenter = ({ isAdmin = false }: Props) => {
+const HistoricCenter = ({ isAdmin = false }: Props) => {
     return (
         <Container maxWidth="xl" sx={{ paddingTop: '1rem'}}>
             <Typography variant='h5' gutterBottom sx={{ color: colors.primary, fontWeight: 'bold'}}>Centros Historicos</Typography>
@@ -15,4 +14,4 @@ const HistoricalCenter = ({ isAdmin = false }: Props) => {
     );
 };
 
-export default HistoricalCenter;
+export default HistoricCenter;

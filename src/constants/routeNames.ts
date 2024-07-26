@@ -1,12 +1,12 @@
-const RoutesNames = {
+const RouteNames = {
   admin: 'admin',
   profile: 'profile',
   user: 'user',
   login: 'login',
   category: 'category',
   info: 'info',
-  hitoricalCenter: '',
+  historicCenter: '',
   index: '/',
 };
 
-export default RoutesNames;
+export default RouteNames;

@@ -1,25 +1,22 @@
 import { MouseEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { auth } from '../../../app/firebase';
 import { RootState } from '../../../app/store';
-import { closeLoader, openLoader } from '../../../redux/generalSlice';
 import AppBarMenuItem from '../../../interfaces/appBarMenuItem';
 import { getOnClickMenuItem } from '../utils/functions';
-import appBarRightStr from '../constants/appBarRightStr';
+import appBarLeftStr from '../constants/appBarLeftStr';
 import RouteNames from '../../../constants/routeNames';
 
-const useAppBarRight = () => {
+const useAppBarLeft = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const language = useSelector((state: RootState) => state.language.language);
   const [menuItems, setMenuItems] = useState<AppBarMenuItem[]>([]);
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
 
-  const handleOpen = (event: MouseEvent<HTMLElement>) => {
+  const handleOpen= (event: MouseEvent<HTMLElement>) => {
     setAnchor(event.currentTarget);
   };
 
@@ -27,22 +24,8 @@ const useAppBarRight = () => {
     setAnchor(null);
   };
 
-  const onLogout = async () => {
-    try {
-      dispatch(openLoader());
-      await signOut(auth);
-    } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-      console.log(errorCode, errorMessage);
-    } finally {
-      dispatch(closeLoader());
-    };
-  };
-
-  const goLogin = () => {
-    navigate(`/${RouteNames.login}`);
+  const goHome = () => {
+    navigate(RouteNames.index);
   };
   
   const getOnClick = getOnClickMenuItem(navigate, handleClose);
@@ -50,26 +33,37 @@ const useAppBarRight = () => {
   useEffect(() => {
     setMenuItems([
       {
-        name: appBarRightStr[language.prefix].profile,
+        name: appBarLeftStr[language.prefix].historicCenter,
         icon: <AccountBoxOutlinedIcon />,
-        onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.profile}`),
+        onClick: getOnClick(RouteNames.index),
       },
       {
-        name: appBarRightStr[language.prefix].logout,
+        hide: Boolean(!auth.currentUser),
+        name: appBarLeftStr[language.prefix].category,
         icon: <ExitToAppOutlinedIcon />,
-        onClick: onLogout,
+        onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.category}`),
+      },
+      {
+        hide: Boolean(!auth.currentUser),
+        name: appBarLeftStr[language.prefix].user,
+        icon: <ExitToAppOutlinedIcon />,
+        onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.user}`),
+      },
+      {
+        name: appBarLeftStr[language.prefix].info,
+        icon: <ExitToAppOutlinedIcon />,
+        onClick: getOnClick(`/${RouteNames.info}`),
       },
     ]);
-  }, [language]);
+  }, [language, auth.currentUser]);
 
   return {
     anchor,
     handleOpen,
     handleClose,
     menuItems,
-    goLogin,
-    language,
+    goHome,
   };
 };
 
-export default useAppBarRight;
+export default useAppBarLeft;

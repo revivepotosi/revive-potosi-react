@@ -1,10 +1,10 @@
 import { Route, Navigate, Routes, BrowserRouter } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import RoutesNames from '../constants/routesNames';
+import RouteNames from '../constants/routeNames';
 import useLocalNavigation from '../hooks/useLocalNavigation';
 import Login from '../feature/login/container/Login';
 import GeneralContainer from '../components/generalContainer/GeneralContainer';
-import HistoricalCenter from '../feature/historicalCenter/container/HistoricalCenter';
+import HistoricCenter from '../feature/historicCenter/container/HistoricCenter';
 import RequireAuth from '../components/requireAuth/RequireAuth';
 import NoRequireAuth from '../components/noRequireAuth/NoRequireAuth';
 import User from '../feature/user/container/User';
@@ -20,22 +20,22 @@ const Navigation = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<GeneralContainer />}>
-          <Route index element={<HistoricalCenter isAdmin={isAuthenticated} />} />
-          <Route path={RoutesNames.info} element={<Info isAdmin={isAuthenticated} />} />
+          <Route index element={<HistoricCenter isAdmin={isAuthenticated} />} />
+          <Route path={RouteNames.info} element={<Info isAdmin={isAuthenticated} />} />
         </Route>
         <Route element={<NoRequireAuth isAuthenticated={isAuthenticated} />}>
-          <Route path={RoutesNames.login} element={<Login />} />
+          <Route path={RouteNames.login} element={<Login />} />
         </Route>
-        <Route path={RoutesNames.admin} element={<RequireAuth isAuthenticated={isAuthenticated} />}>
+        <Route path={RouteNames.admin} element={<RequireAuth isAuthenticated={isAuthenticated} />}>
           <Route element={<GeneralContainer />}>
-            <Route path={RoutesNames.user} element={<User />} />
-            <Route path={RoutesNames.category} element={<Category />} />
-            <Route path={RoutesNames.profile} element={<Profile />} />
+            <Route path={RouteNames.user} element={<User />} />
+            <Route path={RouteNames.category} element={<Category />} />
+            <Route path={RouteNames.profile} element={<Profile />} />
           </Route>
         </Route>
         <Route
           path="*"
-          element={<Navigate to={RoutesNames.index} replace />}
+          element={<Navigate to={RouteNames.index} replace />}
         />
       </Routes>
     </BrowserRouter>

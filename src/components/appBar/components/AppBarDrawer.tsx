@@ -13,15 +13,18 @@ const AppBarDrawer = ({ items, anchor = 'left', open = false, onClose = () => nu
     <Drawer anchor={anchor} open={open} onClose={onClose} PaperProps={{sx: { backgroundColor: colors.background }}}>
       <Box sx={{ width: 250 }}>
         <List>
-          {items.map((item) => (
-            <ListItem key={item.name} disablePadding>
-              <ListItemButton onClick={item.onClick}>
-                <ListItemIcon>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </ListItem>
+          {items.map((item) => (item.hide
+            ? null
+            : (
+              <ListItem key={item.name} disablePadding>
+                <ListItemButton onClick={item.onClick}>
+                  <ListItemIcon>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </ListItem>
+            )
           ))}
         </List>
       </Box>

@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import { Alert, Box, Button, TextField, Typography } from '@mui/material';
-import { RootState } from '../../../app/store';
 import colors from '../../../style/colors';
 import LOGIN_STR from '../constants/loginStr';
 import useLogin from '../hooks/useLogin';
@@ -9,7 +7,6 @@ import LanguageSelector from '../../../components/languageSelector/LanguageSelec
 import BackgroudContainer from '../../../components/backgroudContainer/BackgroudContainer';
 
 const Login = () => {
-  const language = useSelector((state: RootState) => state.language.language);
   const {
     loginData,
     handleLogin,
@@ -22,6 +19,7 @@ const Login = () => {
     validatePassword,
     showErrorAlert,
     goToHome,
+    language,
   } = useLogin();
   return (
     <BackgroudContainer>
@@ -46,6 +44,7 @@ const Login = () => {
             onBlur={validateEmail}
             label={LOGIN_STR[language.prefix].email_label}
             variant="outlined"
+            autoComplete="true"
           />
           <TextField
             error={!isPasswordValid}
@@ -59,6 +58,7 @@ const Login = () => {
             onBlur={validatePassword}
             label={LOGIN_STR[language.prefix].password_label}
             variant="outlined"
+            autoComplete="off"
           />
           {showErrorAlert ? (
             <Alert variant="filled" severity="error">

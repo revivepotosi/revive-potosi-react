@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useSingin from '../../../hooks/useSingin';
-import RoutesNames from '../../../constants/routesNames';
+import RouteNames from '../../../constants/routeNames';
+import { RootState } from '../../../app/store';
+import formValidationStr from '../../../constants/formValidationStr';
 
 const isEmail = (email: string) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 const useLogin = () => {
+  const language = useSelector((state: RootState) => state.language.language);
   const navigate = useNavigate();
   const { loginUser } = useSingin();
   const [loginData, setLoginData] = useState({
@@ -22,12 +26,12 @@ const useLogin = () => {
   const validateEmail = () => {
     if(loginData.email === '') {
       setIsEmailValid(false);
-      setEmailHelperText('Correo Requerido.');
+      setEmailHelperText(formValidationStr[language.prefix].requiredField);
       return false;
     };
     if(!isEmail(loginData.email)) {
       setIsEmailValid(false);
-      setEmailHelperText('Formato de correo no valido.');
+      setEmailHelperText(formValidationStr[language.prefix].invalidEmailFormat);
       return false;
     };
     setIsEmailValid(true);
@@ -38,7 +42,7 @@ const useLogin = () => {
   const validatePassword = () => {
     if(loginData.password === '') {
       setIsPasswordValid(false);
-      setPasswordHelperText('Correo Requerido.');
+      setPasswordHelperText(formValidationStr[language.prefix].requiredField);
       return false;
     };
     setIsPasswordValid(true);
@@ -64,7 +68,7 @@ const useLogin = () => {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  const goToHome = () => { navigate(RoutesNames.index) };
+  const goToHome = () => { navigate(RouteNames.index) };
 
   return {
     loginData,
@@ -78,6 +82,7 @@ const useLogin = () => {
     validatePassword,
     showErrorAlert,
     goToHome,
+    language,
   };
 };
 
