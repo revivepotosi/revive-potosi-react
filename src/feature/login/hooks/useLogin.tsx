@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useSingin from '../../../hooks/useSingin';
+import RoutesNames from '../../../constants/routesNames';
 
 const isEmail = (email: string) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 const useLogin = () => {
+  const navigate = useNavigate();
   const { loginUser } = useSingin();
   const [loginData, setLoginData] = useState({
     email: '',
@@ -49,8 +52,7 @@ const useLogin = () => {
     const isPasswordValidLocal = validatePassword();
     if (isEmailValidLocal && isPasswordValidLocal) {
       try {
-        const user = await loginUser(loginData.email, loginData.password);
-        console.log(user);
+        await loginUser(loginData.email, loginData.password);
       } catch (error: any) {
         setShowErrorAlert(true);
       }
@@ -61,6 +63,8 @@ const useLogin = () => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
+
+  const goToHome = () => { navigate(RoutesNames.index) };
 
   return {
     loginData,
@@ -73,6 +77,7 @@ const useLogin = () => {
     validateEmail,
     validatePassword,
     showErrorAlert,
+    goToHome,
   };
 };
 

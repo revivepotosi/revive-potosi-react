@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../app/firebase';
-import { openLoader, closeLoader } from '../redux/generalSlice';
 
 const useLocalNavigation = () => {
-  const dispatch = useDispatch();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    dispatch(openLoader());
     onAuthStateChanged(auth, (user) => {
       setIsAuthenticated(Boolean(user));
-      dispatch(closeLoader());
+      setIsLoading(false);
     });
   }, []);
-  return { isAuthenticated };
+  return { isAuthenticated, isLoading };
 };
 
 export default useLocalNavigation;

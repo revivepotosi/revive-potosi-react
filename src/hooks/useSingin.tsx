@@ -9,8 +9,7 @@ const useSingin = () => {
   const loginUser = async (email: string, password: string) => {
     try {
       dispatch(openLoader());
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      return userCredential.user;
+      await signInWithEmailAndPassword(auth, email, password);
     } catch(error: any) {
       throw error;
     } finally {
