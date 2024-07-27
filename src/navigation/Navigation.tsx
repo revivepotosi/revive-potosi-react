@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 import RouteNames from '../constants/routeNames';
 import useLocalNavigation from '../hooks/useLocalNavigation';
 import Login from '../feature/login/container/Login';
-import GeneralContainer from '../components/generalContainer/GeneralContainer';
+import AppBarContainer from '../components/appBarContainer/AppBarContainer';
 import HistoricCenter from '../feature/historicCenter/container/HistoricCenter';
 import RequireAuth from '../components/requireAuth/RequireAuth';
 import NoRequireAuth from '../components/noRequireAuth/NoRequireAuth';
@@ -12,6 +12,7 @@ import Info from '../feature/info/container/Info';
 import Category from '../feature/category/container/Category';
 import Profile from '../feature/profile/container/Profile';
 import BackgroudContainer from '../components/backgroudContainer/BackgroudContainer';
+import AddCategory from '../feature/category/container/AddCategory';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -19,7 +20,7 @@ const Navigation = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<GeneralContainer />}>
+        <Route element={<AppBarContainer />}>
           <Route index element={<HistoricCenter isAdmin={isAuthenticated} />} />
           <Route path={RouteNames.info} element={<Info isAdmin={isAuthenticated} />} />
         </Route>
@@ -27,9 +28,13 @@ const Navigation = () => {
           <Route path={RouteNames.login} element={<Login />} />
         </Route>
         <Route path={RouteNames.admin} element={<RequireAuth isAuthenticated={isAuthenticated} />}>
-          <Route element={<GeneralContainer />}>
+          <Route element={<AppBarContainer />}>
             <Route path={RouteNames.user} element={<User />} />
-            <Route path={RouteNames.category} element={<Category />} />
+            <Route path={RouteNames.category}>
+              <Route index element={<Category />} />
+              <Route path={RouteNames.add} element={<AddCategory />} />
+            </Route>
+            <Route path={RouteNames.user} element={<User />} />
             <Route path={RouteNames.profile} element={<Profile />} />
           </Route>
         </Route>

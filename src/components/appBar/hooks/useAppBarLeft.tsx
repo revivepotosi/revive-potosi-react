@@ -1,8 +1,10 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import ChurchOutlinedIcon from '@mui/icons-material/ChurchOutlined';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { auth } from '../../../app/firebase';
 import { RootState } from '../../../app/store';
 import AppBarMenuItem from '../../../interfaces/appBarMenuItem';
@@ -34,24 +36,24 @@ const useAppBarLeft = () => {
     setMenuItems([
       {
         name: appBarLeftStr[language.prefix].historicCenter,
-        icon: <AccountBoxOutlinedIcon />,
+        icon: <ChurchOutlinedIcon />,
         onClick: getOnClick(RouteNames.index),
       },
       {
         hide: Boolean(!auth.currentUser),
         name: appBarLeftStr[language.prefix].category,
-        icon: <ExitToAppOutlinedIcon />,
+        icon: <FilterAltOutlinedIcon />,
         onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.category}`),
       },
       {
         hide: Boolean(!auth.currentUser),
         name: appBarLeftStr[language.prefix].user,
-        icon: <ExitToAppOutlinedIcon />,
+        icon: <PersonOutlinedIcon />,
         onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.user}`),
       },
       {
         name: appBarLeftStr[language.prefix].info,
-        icon: <ExitToAppOutlinedIcon />,
+        icon: <InfoOutlinedIcon />,
         onClick: getOnClick(`/${RouteNames.info}`),
       },
     ]);

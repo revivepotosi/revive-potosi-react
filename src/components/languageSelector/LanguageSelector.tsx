@@ -25,6 +25,7 @@ const LanguageSelector = ({ color = 'primary', size = 'medium', sx }: Props) => 
     event: React.MouseEvent<HTMLElement>,
     newLanguagePrefix: string,
   ) => {
+    if (!event) return;
     if (!newLanguagePrefix) return;
     const newLanguage = Languages.find((languageItem) => languageItem.prefix === newLanguagePrefix);
     if (!newLanguage) return;

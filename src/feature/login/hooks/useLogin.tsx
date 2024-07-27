@@ -68,7 +68,7 @@ const useLogin = () => {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  const goToHome = () => { navigate(RouteNames.index) };
+  const goHome = () => { navigate(RouteNames.index) };
 
   return {
     loginData,
@@ -81,7 +81,7 @@ const useLogin = () => {
     validateEmail,
     validatePassword,
     showErrorAlert,
-    goToHome,
+    goHome,
     language,
   };
 };

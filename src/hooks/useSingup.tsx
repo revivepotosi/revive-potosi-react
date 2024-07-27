@@ -11,7 +11,7 @@ const useSingup = () => {
       dispatch(openLoader());
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log(userCredential);
+      console.log(user);
     } catch(error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;

@@ -18,7 +18,7 @@ const Login = () => {
     validateEmail,
     validatePassword,
     showErrorAlert,
-    goToHome,
+    goHome,
     language,
   } = useLogin();
   return (
@@ -67,7 +67,7 @@ const Login = () => {
           ): null}
           <Button type="submit" variant="contained">{LOGIN_STR[language.prefix].btn_login_label}</Button>
           <Button variant="outlined">{LOGIN_STR[language.prefix].btn_forgot_password_label}</Button>
-          <Button variant="text" onClick={goToHome}>{LOGIN_STR[language.prefix].btn_back}</Button>
+          <Button variant="text" onClick={goHome}>{LOGIN_STR[language.prefix].btn_back}</Button>
         </Box>
       </Box>
     </BackgroudContainer>

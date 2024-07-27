@@ -7,6 +7,7 @@ const RouteNames = {
   info: 'info',
   historicCenter: '',
   index: '/',
+  add: 'add',
 };
 
 export default RouteNames;

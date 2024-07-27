@@ -1,12 +1,17 @@
-import { Container, Typography } from '@mui/material';
-import colors from '../../../style/colors';
+import { Button } from '@mui/material';
+import useCategory from '../hooks/useCategory';
+import categoryStr from '../constants/categoryStr';
+import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
 
 const Category = () => {
-    return (
-        <Container maxWidth="xl" sx={{ paddingTop: '1rem'}}>
-            <Typography variant='h5' gutterBottom sx={{ color: colors.primary, fontWeight: 'bold'}}>Category</Typography>
-        </Container>
-    );
+  const { language, goAddCategory } = useCategory();
+  return (
+    <GeneralContainer title={categoryStr[language.prefix].title}>
+      <Button variant="contained" onClick={goAddCategory}>
+        {categoryStr[language.prefix].addButton}
+      </Button>
+    </GeneralContainer>
+  );
 };
 
 export default Category;
