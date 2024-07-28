@@ -8,6 +8,7 @@ const RouteNames = {
   historicCenter: '',
   index: '/',
   add: 'add',
+  id: ':id',
 };
 
 export default RouteNames;

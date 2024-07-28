@@ -3,21 +3,12 @@ import useCategory from '../hooks/useCategory';
 import categoryStr from '../constants/categoryStr';
 import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
 import ImageBackgroundGroup from '../../../components/imageBackgroundGroup/ImageBackgroundGroup';
-import ImageBackgroundGroupSkeleton from '../../../components/imageBackgroundGroup/ImageBackgroundGroupSkeleton';
-import GeneralContainerSkeleton from '../../../components/generalContainer/GeneralContainerSkeleton';
-import ButtonSkeleton from '../../../components/skeleton/ButtonSkeleton';
+import CategorySkeleton from '../components/CategorySkeleton';
 
 const Category = () => {
-  const { language, loading, goAddCategory, categories } = useCategory();
+  const { language, loading, goAddCategory, goViewCategory, categories } = useCategory();
   
-  if (loading) return (
-    <GeneralContainerSkeleton>
-      <>
-        <ButtonSkeleton />
-        <ImageBackgroundGroupSkeleton />
-      </>
-    </GeneralContainerSkeleton>
-  );
+  if (loading) return <CategorySkeleton />;
 
   return (
     <GeneralContainer title={categoryStr[language.prefix].title}>
@@ -25,7 +16,7 @@ const Category = () => {
         <Button variant="contained" onClick={goAddCategory}>
           {categoryStr[language.prefix].addButton}
         </Button>
-        <ImageBackgroundGroup items={categories} />
+        <ImageBackgroundGroup items={categories} onClick={goViewCategory} />
       </>
     </GeneralContainer>
   );

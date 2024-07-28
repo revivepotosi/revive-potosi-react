@@ -2,13 +2,14 @@ import { Skeleton } from '@mui/material';
 
 interface Props {
   text?: boolean;
-  sx?: any,
+  sx?: any;
+  width?: string;
 }
 
-const ButtonSkeleton = ({ text = false, sx }: Props) => (
+const ButtonSkeleton = ({ text = false, sx, width = '11.25rem' }: Props) => (
   <Skeleton
     variant="rounded"
-    width="11.25rem"
+    width={width}
     height={text ? '1.922rem' : '2.281rem'}
     sx={sx}
   />

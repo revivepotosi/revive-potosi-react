@@ -12,4 +12,3 @@ const addCategoryStr: Record<string, any> = {
 };
 
 export default addCategoryStr;
-  

@@ -6,9 +6,10 @@ import Category from '../../feature/category/interfaces/category';
 
 interface Props {
   items: Category[],
+  onClick: (string: string) => () => void;
 }
 
-const ImageBackgroundGroup = ({ items }: Props) => {
+const ImageBackgroundGroup = ({ items, onClick }: Props) => {
   const language = useSelector((state: RootState) => state.language.language);
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -20,7 +21,7 @@ const ImageBackgroundGroup = ({ items }: Props) => {
       >
         {items.map((item) => (
           <Grid item xs={2} key={item.id}>
-            <ImageBackgroundCard title={item.text[language.prefix].name}  imageLink={item.image.url} />
+            <ImageBackgroundCard title={item.text[language.prefix].name}  imageLink={item.image.url} onClick={onClick(item.id ?? '')} />
           </Grid>
         ))}
       </Grid>

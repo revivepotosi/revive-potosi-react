@@ -4,10 +4,10 @@ interface Texts {
   name: string;
 }
 
-interface HistoricCenter {
+interface Category {
   id?: string;
   text: Record<string, Texts>;
   image: Image;
 }
 
-export default HistoricCenter;
+export default Category;

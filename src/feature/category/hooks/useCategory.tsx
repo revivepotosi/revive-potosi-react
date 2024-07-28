@@ -14,23 +14,21 @@ const useCategory = () => {
   const language = useSelector((state: RootState) => state.language.language);
 
   const goAddCategory = () => navigate(`/${RouteNames.admin}/${RouteNames.category}/${RouteNames.add}`);
+  const goViewCategory = (id: string) => () => navigate(`/${RouteNames.admin}/${RouteNames.category}/${id}`);
 
   useEffect(() => {
-    try {
-      const init = async () => {
-        const data: Category[] = await getData(collections.category);
-        setCategories(data);
-        setLoading(false);
-      };
-      init();
-    } catch (error: any) {
-      console.log(error);
-    }
+    const init = async () => {
+      const data: Category[] = await getData(collections.category);
+      setCategories(data);
+      setLoading(false);
+    };
+    init().then().catch((error) => console.log(error));
   }, []);
   return {
     language,
     loading,
     goAddCategory,
+    goViewCategory,
     categories,
   };
 };

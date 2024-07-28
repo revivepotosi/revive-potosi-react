@@ -28,7 +28,7 @@ const GeneralContainer = ({ title, backButton, children }: Props) => (
         </Button>
       ) : null
     }
-    <Typography variant='h5' gutterBottom sx={{ marginBottom: '0.5rem', color: colors.primary, fontWeight: 'bold'}}>
+    <Typography variant='h5' sx={{ marginBottom: '0.5rem', color: colors.primary, fontWeight: 'bold'}}>
       {title}
     </Typography>
     { children }
