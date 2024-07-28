@@ -9,7 +9,7 @@ import { closeLoader, openLoader } from '../../../redux/generalSlice';
 import RouteNames from '../../../constants/routeNames';
 import formValidationStr from '../../../constants/formValidationStr';
 import collections from '../../../constants/collections';
-import AddCategory from '../interfaces/addCategory';
+import Category from '../interfaces/category';
 import uploadImage from '../../../utils/uploadImage';
 
 const useAddCategory = () => {
@@ -53,15 +53,17 @@ const useAddCategory = () => {
       try {
         dispatch(openLoader());
         if (!values.image) throw Error(formValidationStr[language.prefix].imageDontValid);
-        const imageURL = await uploadImage(values.image);
-        const newCategory: AddCategory = {
-          ES: {
-            name: values.nameSpanish,
+        const image = await uploadImage(values.image);
+        const newCategory: Category = {
+          text: {
+            ES: {
+              name: values.nameSpanish,
+            },
+            EN: {
+              name: values.nameEnglish,
+            },
           },
-          EN: {
-            name: values.nameEnglish,
-          },
-          image: imageURL,
+          image: image,
         };
         await addDoc(collection(db, collections.category), newCategory);
         goCategory();
