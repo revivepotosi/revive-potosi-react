@@ -1,15 +1,15 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Button, Typography } from '@mui/material';
 import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
 import ViewCategorySkeleton from '../components/ViewCategorySkeleton';
 import useViewCategory from '../hooks/useViewCategory';
-import { getViewField } from '../../../utils/functions';
+import { getViewField, getViewMediaField } from '../../../utils/functions';
 import formStr from '../../../constants/formStr';
 import viewCategoryStr from '../constants/viewCategoryStr';
 import buttonsStr from '../../../constants/buttonsStr';
+import CardContainer from '../../../components/cardContainer/CardContainer';
 
 const ViewCategory = () => {
-  const { language, goCategory, deleteCategory, loading, category } = useViewCategory();
+  const { language, goCategory, goEditCategory, deleteCategory, loading, category } = useViewCategory();
   if (loading ) return <ViewCategorySkeleton />;
   return (
     <GeneralContainer
@@ -17,7 +17,6 @@ const ViewCategory = () => {
       backButton={{
         title: viewCategoryStr[language.prefix].backButton,
         onClick: goCategory,
-        icon: <ArrowBackIcon />,
       }}
     >
       <>
@@ -25,57 +24,50 @@ const ViewCategory = () => {
           display="flex"
           gap="0.5rem"
         >
-          <Button variant="contained">
+          <Button variant="contained" onClick={goEditCategory}>
             {buttonsStr[language.prefix].edit}
           </Button>
           <Button variant="contained" color="error" onClick={deleteCategory}>
             {buttonsStr[language.prefix].delete}
           </Button>
         </Box>
-        <Box sx={{ flexGrow: 1, marginTop: '1rem' }}>
-          <Grid
-            container
-            spacing={2}
-            columns={{ xs: 2, sm: 4, md: 6 }}
-            sx={{ paddingBottom: '1rem'}}
+        <CardContainer sx={{ marginTop: '1rem' }}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap="1rem"
           >
-            <Grid item xs={2} sm={4} md={6}>
-              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+            <Box>
+              <Typography variant='h6' gutterBottom sx={{ fontWeight: 'bold' }}>
                 {formStr[language.prefix].spanishTexts}
               </Typography>
-            </Grid>
-            <Grid item xs={2}>
               <Typography variant='body1'>
                 {getViewField(formStr[language.prefix].name, category?.text.ES.name ?? '')}
               </Typography>
-            </Grid>
-            <Grid item xs={2} sm={4} md={6}>
-              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+            </Box>
+            <Box>
+              <Typography variant='h6' gutterBottom sx={{ fontWeight: 'bold' }}>
                 {formStr[language.prefix].englishTexts}
               </Typography>
-            </Grid>
-            <Grid item xs={2}>
               <Typography variant='body1'>
                 {getViewField(formStr[language.prefix].name, category?.text.EN.name ?? '')}
               </Typography>
-            </Grid>
-            <Grid item xs={2} sm={4} md={6}>
-              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+            </Box>
+            <Box>
+              <Typography variant='h6' gutterBottom sx={{ fontWeight: 'bold' }}>
                 {formStr[language.prefix].general}
               </Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Typography variant='body1'>
-                <img
-                  src={category?.image.url ?? ''}
-                  width="100%"
-                  style={{ borderRadius: '0.25rem' }}
-                  alt={`${category?.text[language.prefix].name ?? ''} category backgroud`}
-                />
+              <Typography variant='body1' gutterBottom>
+                {getViewMediaField(formStr[language.prefix].image)}
               </Typography>
-            </Grid>
-          </Grid>
-        </Box>
+              <img
+                src={category?.image.url ?? ''}
+                style={{ display: 'block', borderRadius: '0.25rem', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+                alt={`${category?.text[language.prefix].name ?? ''} category backgroud`}
+              />
+            </Box>
+          </Box>
+        </CardContainer>
       </>
     </GeneralContainer>
   );

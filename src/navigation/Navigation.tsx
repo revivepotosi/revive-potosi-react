@@ -14,6 +14,7 @@ import Profile from '../feature/profile/container/Profile';
 import BackgroudContainer from '../components/backgroudContainer/BackgroudContainer';
 import AddCategory from '../feature/category/container/AddCategory';
 import ViewCategory from '../feature/category/container/ViewCategory';
+import EditCategory from '../feature/category/container/EditCategory';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -35,6 +36,7 @@ const Navigation = () => {
               <Route index element={<Category />} />
               <Route path={RouteNames.add} element={<AddCategory />} />
               <Route path={RouteNames.id} element={<ViewCategory />} />
+              <Route path={`${RouteNames.edit}/${RouteNames.id}`} element={<EditCategory />} />
             </Route>
             <Route path={RouteNames.user} element={<User />} />
             <Route path={RouteNames.profile} element={<Profile />} />

@@ -1,10 +1,10 @@
 import { Button, Container, Typography } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import colors from '../../style/colors';
 
 interface BackButton {
   title: string;
   onClick: () => void;
-  icon: JSX.Element;
 }
 
 interface Props {
@@ -22,7 +22,7 @@ const GeneralContainer = ({ title, backButton, children }: Props) => (
           variant="text"
           sx={{ marginBottom: '0.5rem'}}
           onClick={backButton.onClick}
-          startIcon={backButton.icon}
+          startIcon={<ArrowBackIcon />}
         >
           {backButton.title}
         </Button>

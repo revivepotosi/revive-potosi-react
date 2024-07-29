@@ -1,17 +1,16 @@
 
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import Image from '../interfaces/image';
+import uploadFile from './firebase/storage/uploadFile';
 
-const uploadImage = async (file: File): Promise<Image> => {
+const uploadImage = async (file: File, collection?: string): Promise<Image> => {
   try {
     const extension = file.name.split('.').pop();
-    const name = `${uuidv4()}.${extension}`;
-    const imageRef = `image/${name}`;
-    const storage = getStorage();
-    const storageRef = ref(storage, imageRef);
-    const response = await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(response.ref);
+    const imageName = `${uuidv4()}.${extension}`;
+    const imageRef = collection ? `image/${collection}/${imageName}` : `image/${imageName}`;
+    const uploadResult = await uploadFile(file, imageRef);
+    const url = await getDownloadURL(uploadResult.ref);
     return {
       url,
       ref: imageRef,

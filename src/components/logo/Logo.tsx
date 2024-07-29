@@ -1,13 +1,13 @@
-import { IconButton } from '@mui/material';
+import { IconButton, SxProps, Theme } from '@mui/material';
 import logoImage from '../../assets/logo.png';
 import logoImageWhite from '../../assets/logo-white.png';
 
 interface Props {
-  size?: 's' | 'm' | 'l' | 'xl',
-  onClick?: () => void,
-  sx?: any,
-  style?: any,
-  white?: boolean,
+  size?: 's' | 'm' | 'l' | 'xl';
+  onClick?: () => void;
+  sx?: SxProps<Theme>;
+  style?: any;
+  white?: boolean;
 };
 
 const sizes = {

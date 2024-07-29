@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
 import RouteNames from '../../../constants/routeNames';
 import Category from '../interfaces/category';
-import getData from '../../../utils/getData';
+import getData from '../../../utils/firebase/firestore/getData';
 import collections from '../../../constants/collections';
 
 const useCategory = () => {

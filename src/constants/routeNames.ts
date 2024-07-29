@@ -8,6 +8,7 @@ const RouteNames = {
   historicCenter: '',
   index: '/',
   add: 'add',
+  edit: 'edit',
   id: ':id',
 };
 

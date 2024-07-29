@@ -1,8 +1,8 @@
-import { Skeleton } from '@mui/material';
+import { Skeleton, SxProps, Theme } from '@mui/material';
 
 interface Props {
   text?: boolean;
-  sx?: any;
+  sx?: SxProps<Theme>;
   width?: string;
 }
 

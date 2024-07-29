@@ -1,25 +1,29 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { MuiFileInput } from 'mui-file-input';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import useAddCategory from '../hooks/useAddCategory';
-import addCategoryStr from '../constants/addCategoryStr';
-import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
-import formStr from '../../../constants/formStr';
+import useEditCategory from '../hooks/useEditCategory';
 import CardContainer from '../../../components/cardContainer/CardContainer';
+import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
+import { getBackTo, getEditTitle } from '../../../utils/functions';
+import EditCategorySkeleton from '../components/EditCategorySkeleton';
+import formStr from '../../../constants/formStr';
 import buttonsStr from '../../../constants/buttonsStr';
 
-const AddCategory = () => {
-  const { language, goCategory, formik } = useAddCategory();
+const EditCategory = () => {
+  const { language, backCategory, loading, category, formik } = useEditCategory();
+
+  if (loading) return <EditCategorySkeleton />;
+
   return (
     <GeneralContainer
-      title={addCategoryStr[language.prefix].title}
+      title={getEditTitle(language.prefix, category?.text[language.prefix].name ?? '')}
       backButton={{
-        title: addCategoryStr[language.prefix].backButton,
-        onClick: goCategory,
+        title: getBackTo(language.prefix, category?.text[language.prefix].name ?? ''),
+        onClick: backCategory,
       }}
     >
       <CardContainer sx={{ marginTop: '1rem'}}>
-        <Box
+      <Box
           display="flex"
           flexDirection="column"
           gap="1rem"
@@ -72,7 +76,6 @@ const AddCategory = () => {
               {formStr[language.prefix].general}
             </Typography>
             <MuiFileInput
-              required
               id="image"
               name="image"
               label={formStr[language.prefix].image}
@@ -94,9 +97,9 @@ const AddCategory = () => {
             <Button
               type="submit"
               variant="contained"
-              disabled={!(formik.isValid && formik.dirty)}
+              disabled={!formik.isValid}
             >
-              {buttonsStr[language.prefix].add}
+              {buttonsStr[language.prefix].edit}
             </Button>
           </Box>
         </Box>
@@ -105,4 +108,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default EditCategory;

@@ -12,7 +12,7 @@ import { RootState } from '../../app/store';
 interface Props {
   color?: 'primary' | 'secondary' | 'white';
   size?: 'small' | 'medium' | 'large';
-  sx?: SxProps<Theme>
+  sx?: SxProps<Theme>;
 };
 
 const LanguageSelector = ({ color = 'primary', size = 'medium', sx }: Props) => {

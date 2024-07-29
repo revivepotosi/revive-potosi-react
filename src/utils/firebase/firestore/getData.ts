@@ -1,5 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../app/firebase';
+import { db } from '../../../app/firebase';
 
 const getData = async (collectionName: string): Promise<any> => {
   const querySnapshot = await getDocs(collection(db, collectionName));

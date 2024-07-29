@@ -5,9 +5,10 @@ import { RootState } from '../../../app/store';
 import { closeLoader, openLoader } from '../../../redux/generalSlice';
 import RouteNames from '../../../constants/routeNames';
 import collections from '../../../constants/collections';
-import getDocumentByID from '../../../utils/getDocumentByID';
+import getDocumentByID from '../../../utils/firebase/firestore/getDocumentByID';
 import Category from '../interfaces/category';
-import deleteDocumentByID from '../../../utils/deleteDocumentByID';
+import deleteDocumentByID from '../../../utils/firebase/firestore/deleteDocumentByID';
+import deleteFile from '../../../utils/firebase/storage/deleteFile';
 
 const useViewCategory = () => {
   const navigate = useNavigate();
@@ -19,14 +20,19 @@ const useViewCategory = () => {
 
   const goCategory = () => navigate(`/${RouteNames.admin}/${RouteNames.category}`);
 
-  const deleteCategory = () => {
+  const goEditCategory = () => navigate(`/${RouteNames.admin}/${RouteNames.category}/${RouteNames.edit}/${id ?? ''}`);
+
+  const deleteCategory = async () => {
     dispatch(openLoader());
-    deleteDocumentByID(collections.category, id ?? '')
-      .catch((error: any) => console.log(error))
-      .finally(() => {
-        dispatch(closeLoader());
-        goCategory();
-      });
+    try {
+      await deleteFile(category?.image.ref ?? '');
+      await deleteDocumentByID(collections.category, id ?? '');
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      dispatch(closeLoader());
+      goCategory();
+    }
   };
 
   useEffect(() => {
@@ -44,6 +50,7 @@ const useViewCategory = () => {
   return {
     language,
     goCategory,
+    goEditCategory,
     deleteCategory,
     loading,
     category,

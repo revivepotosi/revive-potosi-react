@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { collection, addDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { db } from '../../../app/firebase';
 import { RootState } from '../../../app/store';
 import { closeLoader, openLoader } from '../../../redux/generalSlice';
 import RouteNames from '../../../constants/routeNames';
@@ -11,6 +9,7 @@ import formValidationStr from '../../../constants/formValidationStr';
 import collections from '../../../constants/collections';
 import Category from '../interfaces/category';
 import uploadImage from '../../../utils/uploadImage';
+import addDocument from '../../../utils/firebase/firestore/addDocument';
 
 const useAddCategory = () => {
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const useAddCategory = () => {
         .required(formValidationStr[language.prefix].requiredField)
         .test('fileFormat', formValidationStr[language.prefix].imageFormat, (value: any) => {
           if (value) {
-            const supportedFormats = ['png', 'jpeg'];
+            const supportedFormats = ['png', 'jpeg', 'jpg'];
             return supportedFormats.includes(value.name.split('.').pop());
           }
           return true;
@@ -53,7 +52,7 @@ const useAddCategory = () => {
       try {
         dispatch(openLoader());
         if (!values.image) throw Error(formValidationStr[language.prefix].imageDontValid);
-        const image = await uploadImage(values.image);
+        const image = await uploadImage(values.image, collections.category);
         const newCategory: Category = {
           text: {
             ES: {
@@ -65,7 +64,7 @@ const useAddCategory = () => {
           },
           image: image,
         };
-        await addDoc(collection(db, collections.category), newCategory);
+        await addDocument(collections.category,newCategory);
         goCategory();
       } catch (error: any) {
         console.log(error);

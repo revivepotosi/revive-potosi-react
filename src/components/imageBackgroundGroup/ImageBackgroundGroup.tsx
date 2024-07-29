@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Box, Grid } from '@mui/material';
+import { Alert, Box, Grid } from '@mui/material';
 import { RootState } from '../../app/store';
 import ImageBackgroundCard from '../imageBackgroundCard/ImageBackgroundCard';
 import Category from '../../feature/category/interfaces/category';
@@ -7,10 +7,17 @@ import Category from '../../feature/category/interfaces/category';
 interface Props {
   items: Category[],
   onClick: (string: string) => () => void;
+  emptyMessage: string;
 }
 
-const ImageBackgroundGroup = ({ items, onClick }: Props) => {
+const ImageBackgroundGroup = ({ items, onClick, emptyMessage }: Props) => {
   const language = useSelector((state: RootState) => state.language.language);
+  if (items.length === 0) return (
+    <Alert variant="filled" severity="info" sx={{ marginTop: '1rem' }}>
+      { emptyMessage }
+    </Alert>
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid

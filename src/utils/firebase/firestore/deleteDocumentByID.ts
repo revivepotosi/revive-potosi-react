@@ -1,5 +1,5 @@
 import { doc, deleteDoc } from 'firebase/firestore';
-import { db } from '../app/firebase';
+import { db } from '../../../app/firebase';
 
 const deleteDocumentByID = async (collectionName: string, id: string): Promise<void> => {
   const docRef = doc(db, collectionName, id);

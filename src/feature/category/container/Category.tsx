@@ -16,7 +16,7 @@ const Category = () => {
         <Button variant="contained" onClick={goAddCategory}>
           {categoryStr[language.prefix].addButton}
         </Button>
-        <ImageBackgroundGroup items={categories} onClick={goViewCategory} />
+        <ImageBackgroundGroup items={categories} onClick={goViewCategory} emptyMessage={categoryStr[language.prefix].emptyMessage} />
       </>
     </GeneralContainer>
   );
