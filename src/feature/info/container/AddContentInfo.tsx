@@ -7,22 +7,27 @@ import CardContainer from '../../../components/cardContainer/CardContainer';
 import buttonsStr from '../../../constants/buttonsStr';
 import validation from '../../../constants/validation';
 import SimpleFormSkeleton from '../../../components/simpleFormSkeleton/SimpleFormSkeleton';
-import addContentHistoricCenterStr from '../constants/addContentHistoricCenterStr';
-import useAddContentHistoricCenter from '../hooks/useAddContentHistoricCenter';
+import addContentInfoStr from '../constants/addContentInfoStr';
 import contentTypes from '../../../constants/contentTypes';
 import { isImageContent, isParagraphContent, isTextContent } from '../../../utils/functions';
+import useAddContentInfo from '../hooks/useAddContentInfo';
 
-const AddContentHistoricCenter = () => {
-  const { loading, language, backToContentHistoricCenter, formik } = useAddContentHistoricCenter();
+const AddContentInfo = () => {
+  const {
+    loading,
+    language,
+    backToInfo,
+    formik,
+  } = useAddContentInfo();
 
   if (loading) return (<SimpleFormSkeleton />);
 
   return (
     <GeneralContainer
-      title={addContentHistoricCenterStr[language.prefix].title}
+      title={addContentInfoStr[language.prefix].title}
       backButton={{
-        title: addContentHistoricCenterStr[language.prefix].backButton,
-        onClick: backToContentHistoricCenter,
+        title: addContentInfoStr[language.prefix].backButton,
+        onClick: backToInfo,
       }}
     >
       <CardContainer sx={{ marginTop: '1rem'}}>
@@ -161,4 +166,4 @@ const AddContentHistoricCenter = () => {
   );
 };
 
-export default AddContentHistoricCenter;
+export default AddContentInfo;

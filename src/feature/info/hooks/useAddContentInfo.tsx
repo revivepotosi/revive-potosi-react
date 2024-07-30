@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,32 +10,32 @@ import RouteNames from '../../../constants/routeNames';
 import formValidationStr from '../../../constants/formValidationStr';
 import collections from '../../../constants/collections';
 import validation from '../../../constants/validation';
-import HistoricCenter from '../interfaces/historicCenter';
 import uploadImage from '../../../utils/uploadImage';
-import getDocumentByID from '../../../utils/firebase/firestore/getDocumentByID';
 import updateDocumentByID from '../../../utils/firebase/firestore/updateDocumentByID';
 import Content, { ContentType } from '../../../interfaces/content';
 import { isImageContent, isTextContent } from '../../../utils/functions';
+import Info from '../interface/info';
+import getData from '../../../utils/firebase/firestore/getData';
+import addDocument from '../../../utils/firebase/firestore/addDocument';
 
-const useAddContentHistoricCenter = () => {
+const useAddContentInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state: RootState) => state.language.language);
-  const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
-  const [historicCenter, setHistoricCenter] = useState<HistoricCenter>();
+  const [infos, setInfos] = useState<Info[]>([]);
 
-  const backToContentHistoricCenter = () => navigate(`/${RouteNames.historicCenter}/${RouteNames.content}/${id}`); 
+  const backToInfo = () => navigate(`/${RouteNames.info}`); 
 
   useEffect(() => {
     const init = async () => {
-      const historicCenterResult: HistoricCenter = await getDocumentByID(collections.historicCenter, id ?? '');
-      setHistoricCenter(historicCenterResult);
+      const data: Info[] = await getData(collections.info);
+      setInfos(data && Array.isArray(data) && data.length > 0 ? data : []);
       setLoading(false);
     };
     init().then().catch((error) => {
       console.log(error);
-      backToContentHistoricCenter();
+      backToInfo();
     });
   }, []);
 
@@ -44,11 +44,20 @@ const useAddContentHistoricCenter = () => {
       ...content,
       id: uuidv4(),
     };
-    let contentUpdated: Content[] = (historicCenter?.contents && Array.isArray(historicCenter?.contents))
-      ? [ ...historicCenter.contents, newContent] : [ newContent ];
+    if (infos.length === 0) {
+      await addDocument(collections.info, {
+        contents: [ newContent ],
+      } as Info);
+      return;
+    }
+
+    const info: Info = infos[0];
+    let contentUpdated: Content[] = (info?.contents && Array.isArray(info?.contents))
+      ? [ ...info.contents, newContent] : [ newContent ];
+  
     await updateDocumentByID(
-      collections.historicCenter,
-      id ?? '',
+      collections.info,
+      info.id,
       {
         contents: contentUpdated,
       }
@@ -107,14 +116,14 @@ const useAddContentHistoricCenter = () => {
         dispatch(openLoader());
         if (isImageContent(values.typeID)) {
           if (values.image) {
-            const image = await uploadImage(values.image, `${collections.historicCenter}/content/${id}`);
+            const image = await uploadImage(values.image, collections.info);
             const newContent: Content = {
               type: values.typeID as ContentType,
               image,
               alt: values.alt,
             };
             await addContent(newContent);
-            backToContentHistoricCenter();
+            backToInfo();
             return;
           } else {
             throw Error(formValidationStr[language.prefix].imageDontValid);
@@ -132,7 +141,7 @@ const useAddContentHistoricCenter = () => {
           },
         };
         addContent(newContent);
-        backToContentHistoricCenter();
+        backToInfo();
       } catch (error: any) {
         console.log(error);
       } finally {
@@ -144,9 +153,9 @@ const useAddContentHistoricCenter = () => {
   return {
     loading,
     language,
-    backToContentHistoricCenter,
+    backToInfo,
     formik,
   };
 };
 
-export default useAddContentHistoricCenter;
+export default useAddContentInfo;
