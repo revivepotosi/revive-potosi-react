@@ -15,7 +15,10 @@ const useHistoricCenter = () => {
   const [historicCenters, setHistoricCenters] = useState<HistoricCenter[]>([]);
 
   const goAddHistoricCenter = () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.add}`);
-  const goViewHistoricCenter = (id: string) => () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${id}`);
+  const goContentHistoricCenter =
+    (id: string) =>
+      () =>
+        navigate(`/${RouteNames.historicCenter}/${RouteNames.content}/${id}`);
 
   useEffect(() => {
     const init = async () => {
@@ -29,7 +32,7 @@ const useHistoricCenter = () => {
   return {
     language,
     goAddHistoricCenter,
-    goViewHistoricCenter,
+    goContentHistoricCenter,
     loading,
     historicCenters,
   };

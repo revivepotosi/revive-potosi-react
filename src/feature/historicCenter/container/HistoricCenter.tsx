@@ -12,7 +12,7 @@ interface Props {
 };
 
 const HistoricCenter = ({ isAdmin = false }: Props) => {
-  const { language, goAddHistoricCenter, goViewHistoricCenter, loading, historicCenters } = useHistoricCenter();
+  const { language, goAddHistoricCenter, goContentHistoricCenter, loading, historicCenters } = useHistoricCenter();
 
   if (loading) return (
     <GeneralContainerSkeleton>
@@ -31,7 +31,7 @@ const HistoricCenter = ({ isAdmin = false }: Props) => {
             {historicCenterStr[language.prefix].addButton}
           </Button>
         ) : null}
-        <ImageBackgroundGroup items={historicCenters} onClick={goViewHistoricCenter} emptyMessage={historicCenterStr[language.prefix].emptyMessage} />
+        <ImageBackgroundGroup items={historicCenters} onClick={goContentHistoricCenter} emptyMessage={historicCenterStr[language.prefix].emptyMessage} />
       </>
     </GeneralContainer>
   );

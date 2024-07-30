@@ -71,7 +71,7 @@ const useAddHistoricCenter = () => {
       try {
         if (!values.image) throw Error(formValidationStr[language.prefix].imageDontValid);
         dispatch(openLoader());
-        const image = await uploadImage(values.image, collections.category);
+        const image = await uploadImage(values.image, collections.historicCenter);
         const categorySelected = categories.find((category: Category) => category.id === values.categoryID);
         const newHistoricCenter: HistoricCenter = {
           text: {

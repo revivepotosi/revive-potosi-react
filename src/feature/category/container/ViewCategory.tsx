@@ -7,6 +7,7 @@ import formStr from '../../../constants/formStr';
 import viewCategoryStr from '../constants/viewCategoryStr';
 import buttonsStr from '../../../constants/buttonsStr';
 import CardContainer from '../../../components/cardContainer/CardContainer';
+import Image from '../../../components/image/Image';
 
 const ViewCategory = () => {
   const { language, goCategory, goEditCategory, deleteCategory, loading, category } = useViewCategory();
@@ -60,11 +61,7 @@ const ViewCategory = () => {
               <Typography variant='body1' gutterBottom>
                 {getViewMediaField(formStr[language.prefix].image)}
               </Typography>
-              <img
-                src={category?.image.url ?? ''}
-                style={{ display: 'block', borderRadius: '0.25rem', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
-                alt={`${category?.text[language.prefix].name ?? ''} category backgroud`}
-              />
+              <Image src={category?.image.url ?? ''} alt={`${category?.text[language.prefix].name ?? ''} category backgroud`} />
             </Box>
           </Box>
         </CardContainer>

@@ -16,6 +16,8 @@ import AddCategory from '../feature/category/container/AddCategory';
 import ViewCategory from '../feature/category/container/ViewCategory';
 import EditCategory from '../feature/category/container/EditCategory';
 import AddHistoricCenter from '../feature/historicCenter/container/AddHistoricCenter';
+import AddContentHistoricCenter from '../feature/historicCenter/container/AddContentHistoricCenter';
+import ContentHistoricCenter from '../feature/historicCenter/container/ContentHistoricCenter';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -25,6 +27,10 @@ const Navigation = () => {
       <Routes>
         <Route element={<AppBarContainer />}>
           <Route index element={<HistoricCenter isAdmin={isAuthenticated} />} />
+          <Route
+            path={`${RouteNames.historicCenter}/${RouteNames.content}/${RouteNames.id}`}
+            element={<ContentHistoricCenter isAdmin={isAuthenticated} />}
+          />
           <Route path={RouteNames.info} element={<Info isAdmin={isAuthenticated} />} />
         </Route>
         <Route element={<NoRequireAuth isAuthenticated={isAuthenticated} />}>
@@ -41,6 +47,7 @@ const Navigation = () => {
             </Route>
             <Route path={RouteNames.historicCenter}>
               <Route path={RouteNames.add} element={<AddHistoricCenter />} />
+              <Route path={`${RouteNames.content}/${RouteNames.add}/${RouteNames.id}`} element={<AddContentHistoricCenter />} />
             </Route>
             <Route path={RouteNames.user} element={<User />} />
             <Route path={RouteNames.profile} element={<Profile />} />

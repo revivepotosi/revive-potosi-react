@@ -1,3 +1,4 @@
+import Content from '../../../interfaces/content';
 import Image from '../../../interfaces/image';
 import CategoryHistoricCenter from './categoryHistoricCenter';
 
@@ -10,6 +11,7 @@ interface HistoricCenter {
   text: Record<string, Texts>;
   category: CategoryHistoricCenter;
   image: Image;
+  contents?: Content[];
 }
 
 export default HistoricCenter;

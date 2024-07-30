@@ -33,11 +33,11 @@ const ImageBackgroundCard = ({ title, subtitle, imageLink, onClick }: Props) => 
           gap: '0.25rem',
         }}
       >
-        <Typography variant='h6' gutterBottom sx={{ marginBottom: '0', color: colors.white }}>
+        <Typography variant='h6' color={colors.white}>
           {title}
         </Typography>
         { subtitle ? (
-          <Typography variant='subtitle1' gutterBottom sx={{ marginBottom: '0', color: colors.white }}>
+          <Typography variant='subtitle1' color={colors.white}>
             {subtitle}
           </Typography>
           ) : null
