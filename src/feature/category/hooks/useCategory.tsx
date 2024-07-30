@@ -24,6 +24,7 @@ const useCategory = () => {
     };
     init().then().catch((error) => console.log(error));
   }, []);
+
   return {
     language,
     loading,

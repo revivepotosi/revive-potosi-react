@@ -5,7 +5,7 @@ const RouteNames = {
   login: 'login',
   category: 'category',
   info: 'info',
-  historicCenter: '',
+  historicCenter: 'historic-center',
   index: '/',
   add: 'add',
   edit: 'edit',

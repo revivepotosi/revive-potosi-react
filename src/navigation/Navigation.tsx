@@ -15,6 +15,7 @@ import BackgroudContainer from '../components/backgroudContainer/BackgroudContai
 import AddCategory from '../feature/category/container/AddCategory';
 import ViewCategory from '../feature/category/container/ViewCategory';
 import EditCategory from '../feature/category/container/EditCategory';
+import AddHistoricCenter from '../feature/historicCenter/container/AddHistoricCenter';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -37,6 +38,9 @@ const Navigation = () => {
               <Route path={RouteNames.add} element={<AddCategory />} />
               <Route path={RouteNames.id} element={<ViewCategory />} />
               <Route path={`${RouteNames.edit}/${RouteNames.id}`} element={<EditCategory />} />
+            </Route>
+            <Route path={RouteNames.historicCenter}>
+              <Route path={RouteNames.add} element={<AddHistoricCenter />} />
             </Route>
             <Route path={RouteNames.user} element={<User />} />
             <Route path={RouteNames.profile} element={<Profile />} />

@@ -3,15 +3,17 @@ import { Alert, Box, Grid } from '@mui/material';
 import { RootState } from '../../app/store';
 import ImageBackgroundCard from '../imageBackgroundCard/ImageBackgroundCard';
 import Category from '../../feature/category/interfaces/category';
+import HistoricCenter from '../../feature/historicCenter/interfaces/historicCenter';
 
 interface Props {
-  items: Category[],
+  items: HistoricCenter[] | Category[],
   onClick: (string: string) => () => void;
   emptyMessage: string;
 }
 
 const ImageBackgroundGroup = ({ items, onClick, emptyMessage }: Props) => {
   const language = useSelector((state: RootState) => state.language.language);
+
   if (items.length === 0) return (
     <Alert variant="filled" severity="info" sx={{ marginTop: '1rem' }}>
       { emptyMessage }
@@ -28,7 +30,12 @@ const ImageBackgroundGroup = ({ items, onClick, emptyMessage }: Props) => {
       >
         {items.map((item) => (
           <Grid item xs={2} key={item.id}>
-            <ImageBackgroundCard title={item.text[language.prefix].name}  imageLink={item.image.url} onClick={onClick(item.id ?? '')} />
+            <ImageBackgroundCard
+              title={item.text[language.prefix].name}
+              subtitle={'category' in item ? item.category.text[language.prefix].name : undefined}
+              imageLink={item.image.url}
+              onClick={onClick(item.id ?? '')}
+            />
           </Grid>
         ))}
       </Grid>

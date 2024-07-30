@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -8,21 +9,35 @@ import RouteNames from '../../../constants/routeNames';
 import formValidationStr from '../../../constants/formValidationStr';
 import collections from '../../../constants/collections';
 import validation from '../../../constants/validation';
-import Category from '../interfaces/category';
+import HistoricCenter from '../interfaces/historicCenter';
 import uploadImage from '../../../utils/uploadImage';
 import addDocument from '../../../utils/firebase/firestore/addDocument';
+import getData from '../../../utils/firebase/firestore/getData';
+import Category from '../../category/interfaces/category';
 
-const useAddCategory = () => {
+const useAddHistoricCenter = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const language = useSelector((state: RootState) => state.language.language);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  const goCategory = () => navigate(`/${RouteNames.admin}/${RouteNames.category}`);
-  
+  const goHistoricCenter = () => navigate(RouteNames.index); 
+
+  useEffect(() => {
+    const init = async () => {
+      const data: Category[] = await getData(collections.category);
+      setCategories(data);
+      setLoading(false);
+    };
+    init().then().catch((error) => console.log(error));
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       nameSpanish: '',
       nameEnglish: '',
+      categoryID: '',
       image: null,
     },
     validationSchema: yup.object({
@@ -30,6 +45,9 @@ const useAddCategory = () => {
         .string()
         .required(formValidationStr[language.prefix].requiredField),
       nameEnglish: yup
+        .string()
+        .required(formValidationStr[language.prefix].requiredField),
+      categoryID: yup
         .string()
         .required(formValidationStr[language.prefix].requiredField),
       image: yup
@@ -51,10 +69,11 @@ const useAddCategory = () => {
     }),
     onSubmit: async (values) => {
       try {
-        dispatch(openLoader());
         if (!values.image) throw Error(formValidationStr[language.prefix].imageDontValid);
+        dispatch(openLoader());
         const image = await uploadImage(values.image, collections.category);
-        const newCategory: Category = {
+        const categorySelected = categories.find((category: Category) => category.id === values.categoryID);
+        const newHistoricCenter: HistoricCenter = {
           text: {
             ES: {
               name: values.nameSpanish,
@@ -64,9 +83,13 @@ const useAddCategory = () => {
             },
           },
           image: image,
+          category: {
+            id: categorySelected?.id ?? '',
+            text: categorySelected?.text ?? {},
+          }
         };
-        await addDocument(collections.category,newCategory);
-        goCategory();
+        await addDocument(collections.historicCenter, newHistoricCenter);
+        goHistoricCenter();
       } catch (error: any) {
         console.log(error);
       } finally {
@@ -76,10 +99,12 @@ const useAddCategory = () => {
   });
   
   return {
+    loading,
     language,
-    goCategory,
+    categories,
+    goHistoricCenter,
     formik,
   };
 };
 
-export default useAddCategory;
+export default useAddHistoricCenter;

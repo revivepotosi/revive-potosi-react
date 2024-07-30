@@ -14,6 +14,11 @@ import Category from '../interfaces/category';
 import EditCategory from '../interfaces/editCategory';
 import deleteFile from '../../../utils/firebase/storage/deleteFile';
 import updateDocumentByID from '../../../utils/firebase/firestore/updateDocumentByID';
+import validation from '../../../constants/validation';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../../app/firebase';
+import HistoricCenter from '../../historicCenter/interfaces/historicCenter';
+import CategoryHistoricCenter from '../../historicCenter/interfaces/categoryHistoricCenter';
 
 const useEditCategory = () => {
   const navigate = useNavigate();
@@ -37,6 +42,27 @@ const useEditCategory = () => {
     });
   }, []);
 
+  const editHistoricCenters = async (newCategory: CategoryHistoricCenter) => {
+    const q = query(collection(db, collections.historicCenter), where('category.id', '==', id));
+    const querySnapshot = await getDocs(q);
+    let historicCenters: any[] = [];
+    querySnapshot.forEach((doc) => {
+      historicCenters.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    for(const historicCenter of historicCenters as HistoricCenter[]) {
+      await updateDocumentByID(
+        collections.historicCenter,
+        historicCenter.id ?? '',
+        {
+          category: newCategory,
+        }
+      );
+    }
+  };
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -56,7 +82,7 @@ const useEditCategory = () => {
         .nullable()
         .test('fileFormat', formValidationStr[language.prefix].imageFormat, (value: any) => {
           if (value) {
-            const supportedFormats = ['png', 'jpeg', 'jpg'];
+            const supportedFormats = validation.imageSupportedFormatsArray;
             return supportedFormats.includes(value.name.split('.').pop());
           }
           return true;
@@ -86,6 +112,10 @@ const useEditCategory = () => {
             },
             image: editedImage,
           };
+          await editHistoricCenters({
+            id: id ?? '',
+            text: editedCategoryWithImage.text,
+          });
           await updateDocumentByID(collections.category, id ?? '', editedCategoryWithImage);
           return;
         };
@@ -100,6 +130,10 @@ const useEditCategory = () => {
             },
           },
         };
+        await editHistoricCenters({
+          id: id ?? '',
+          text: editedCategory.text,
+        });
         await updateDocumentByID(collections.category, id ?? '', editedCategory);
       } catch (error: any) {
         console.log(error);

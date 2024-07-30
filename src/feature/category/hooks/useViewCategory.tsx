@@ -9,6 +9,9 @@ import getDocumentByID from '../../../utils/firebase/firestore/getDocumentByID';
 import Category from '../interfaces/category';
 import deleteDocumentByID from '../../../utils/firebase/firestore/deleteDocumentByID';
 import deleteFile from '../../../utils/firebase/storage/deleteFile';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../../app/firebase';
+import viewCategoryStr from '../constants/viewCategoryStr';
 
 const useViewCategory = () => {
   const navigate = useNavigate();
@@ -25,6 +28,12 @@ const useViewCategory = () => {
   const deleteCategory = async () => {
     dispatch(openLoader());
     try {
+      const q = query(collection(db, collections.historicCenter), where('category.id', '==', id));
+      const querySnapshot = await getDocs(q);
+      if ( querySnapshot.docs.length > 0) {
+        alert(viewCategoryStr[language.prefix].errorMessageHistoricCenter);
+        return;
+      }
       await deleteFile(category?.image.ref ?? '');
       await deleteDocumentByID(collections.category, id ?? '');
     } catch (error: any) {

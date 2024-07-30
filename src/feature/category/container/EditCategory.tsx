@@ -5,14 +5,15 @@ import useEditCategory from '../hooks/useEditCategory';
 import CardContainer from '../../../components/cardContainer/CardContainer';
 import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
 import { getBackTo, getEditTitle } from '../../../utils/functions';
-import EditCategorySkeleton from '../components/EditCategorySkeleton';
+import SimpleFormSkeleton from '../../../components/simpleFormSkeleton/SimpleFormSkeleton';
 import formStr from '../../../constants/formStr';
 import buttonsStr from '../../../constants/buttonsStr';
+import validation from '../../../constants/validation';
 
 const EditCategory = () => {
   const { language, backCategory, loading, category, formik } = useEditCategory();
 
-  if (loading) return <EditCategorySkeleton />;
+  if (loading) return <SimpleFormSkeleton />;
 
   return (
     <GeneralContainer
@@ -85,7 +86,7 @@ const EditCategory = () => {
               onChange={(newValue) => formik.setFieldValue('image', newValue)}
               error={formik.touched.image && Boolean(formik.errors.image)}
               helperText={formik.touched.image && formik.errors.image}
-              inputProps={{ accept: '.png, .jpeg, .jpg' }}
+              inputProps={{ accept: validation.imageSupportedFormatsString }}
               clearIconButtonProps={{
                 title: "Remove",
                 children: <CloseOutlinedIcon fontSize="small" />
