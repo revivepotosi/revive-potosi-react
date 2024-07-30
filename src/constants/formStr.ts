@@ -7,13 +7,17 @@ const formStr: Record<string, any> = {
     image: 'Imagen',
     type: 'Tipo',
     alt: 'Texto alternativo',
+    category: 'Categoría',
   },
   EN: {
     englishTexts: 'Texts in english',
     spanishTexts: 'Texts in spanish',
     general: 'General',
     name: 'Name',
+    image: 'Image',
+    type: 'Type',
     alt: 'Alternative text',
+    category: 'Category',
   },
 };
   

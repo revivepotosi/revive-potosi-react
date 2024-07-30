@@ -12,6 +12,7 @@ import deleteFile from '../../../utils/firebase/storage/deleteFile';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../app/firebase';
 import viewCategoryStr from '../constants/viewCategoryStr';
+import { getDeleteTitle } from '../../../utils/functions';
 
 const useViewCategory = () => {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ const useViewCategory = () => {
   const goEditCategory = () => navigate(`/${RouteNames.admin}/${RouteNames.category}/${RouteNames.edit}/${id ?? ''}`);
 
   const deleteCategory = async () => {
+    const isConfirmed = confirm(getDeleteTitle(language.prefix, category?.text[language.prefix].name ?? ''));
+    if (!isConfirmed) return;
+  
     dispatch(openLoader());
     try {
       const q = query(collection(db, collections.historicCenter), where('category.id', '==', id));

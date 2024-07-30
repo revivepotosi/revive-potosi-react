@@ -97,7 +97,7 @@ const AddHistoricCenter = () => {
             />
             <FormControl required fullWidth error={formik.touched.categoryID && Boolean(formik.errors.categoryID)}>
               <InputLabel id="categoryID-select-label">
-                {addHistoricCenterStr[language.prefix].category}
+                {formStr[language.prefix].category}
               </InputLabel>
               <Select
                 required
@@ -105,7 +105,7 @@ const AddHistoricCenter = () => {
                 id="categoryID"
                 name="categoryID"
                 value={formik.values.categoryID}
-                label={addHistoricCenterStr[language.prefix].category}
+                label={formStr[language.prefix].category}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               >

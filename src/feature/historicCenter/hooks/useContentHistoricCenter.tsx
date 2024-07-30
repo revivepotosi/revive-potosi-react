@@ -15,6 +15,7 @@ const useContentHistoricCenter = () => {
   const [historicCenter, setHistoricCenter] = useState<HistoricCenter>();
 
   const backToHistoricCenters = () => navigate(RouteNames.index);
+  const goViewHistoricCenter = () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${id}`);
   const goAddContentHistoricCenter = () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.content}/${RouteNames.add}/${id}`);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const useContentHistoricCenter = () => {
     loading,
     historicCenter,
     backToHistoricCenters,
+    goViewHistoricCenter,
     goAddContentHistoricCenter,
   };
 };

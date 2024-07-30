@@ -1,4 +1,4 @@
-import { Alert, Button, Typography } from '@mui/material';
+import { Alert, Box, Button, Typography } from '@mui/material';
 import CardContainerSkeleton from '../../../components/cardContainer/CardContainerSkeleton';
 import GeneralContainer from '../../../components/generalContainer/GeneralContainer';
 import GeneralContainerSkeleton from '../../../components/generalContainer/GeneralContainerSkeleton';
@@ -20,6 +20,7 @@ const ContentHistoricCenter = ({ isAdmin = false }: Props) => {
     loading,
     historicCenter,
     backToHistoricCenters,
+    goViewHistoricCenter,
     goAddContentHistoricCenter,
   } = useContentHistoricCenter();
 
@@ -52,9 +53,14 @@ const ContentHistoricCenter = ({ isAdmin = false }: Props) => {
     >
       <>
         { isAdmin ? (
-          <Button variant="contained" onClick={goAddContentHistoricCenter}>
-            {contentHistoricCenterStr[language.prefix].addButton}
-          </Button>
+          <Box sx={{ whiteSpace: 'nowrap', overflow: 'auto' }}>
+            <Button variant="contained" onClick={goAddContentHistoricCenter} sx={{ marginRight: '0.5rem' }}>
+              {contentHistoricCenterStr[language.prefix].addButton}
+            </Button>
+            <Button variant="contained" color="secondary" onClick={goViewHistoricCenter}>
+              {contentHistoricCenterStr[language.prefix].viewButton}
+            </Button>
+          </Box>
         ) : null}
         <CardContainer sx={{ marginTop: '1rem'}}>
           <>

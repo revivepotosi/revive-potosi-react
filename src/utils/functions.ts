@@ -16,6 +16,8 @@ const isImageContent = (type: string): boolean => type === contentTypes[2].id;
 
 const isParagraphContent = (type: string): boolean => type === contentTypes[3].id;
 
+const getDeleteTitle = (lenguagePrefix: string, objectToDelete: string) => `${generalStr[lenguagePrefix].deleteTitle} ${objectToDelete}?`;
+
 export {
     getViewField,
     getViewMediaField,
@@ -24,4 +26,5 @@ export {
     isTextContent,
     isImageContent,
     isParagraphContent,
+    getDeleteTitle,
 };

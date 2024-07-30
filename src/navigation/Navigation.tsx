@@ -18,6 +18,7 @@ import EditCategory from '../feature/category/container/EditCategory';
 import AddHistoricCenter from '../feature/historicCenter/container/AddHistoricCenter';
 import AddContentHistoricCenter from '../feature/historicCenter/container/AddContentHistoricCenter';
 import ContentHistoricCenter from '../feature/historicCenter/container/ContentHistoricCenter';
+import ViewHistoricCenter from '../feature/historicCenter/container/ViewHistoricCenter';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -48,6 +49,7 @@ const Navigation = () => {
             <Route path={RouteNames.historicCenter}>
               <Route path={RouteNames.add} element={<AddHistoricCenter />} />
               <Route path={`${RouteNames.content}/${RouteNames.add}/${RouteNames.id}`} element={<AddContentHistoricCenter />} />
+              <Route path={RouteNames.id} element={<ViewHistoricCenter />} />
             </Route>
             <Route path={RouteNames.user} element={<User />} />
             <Route path={RouteNames.profile} element={<Profile />} />
