@@ -17,6 +17,8 @@ import HistoricCenter from '../../historicCenter/interfaces/historicCenter';
 import EditHistoricCenter from '../interfaces/editHistoricCenter';
 import Category from '../../category/interfaces/category';
 import getData from '../../../utils/firebase/firestore/getData';
+import maps from '../../../constants/maps';
+import useFormMap from '../../../hooks/useFormMap';
 
 const useEditHistoricCenter = () => {
   const navigate = useNavigate();
@@ -29,20 +31,6 @@ const useEditHistoricCenter = () => {
 
   const backViewHistoricCenter = () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${id}`);
 
-  useEffect(() => {
-    const init = async () => {
-      const historicCenter: HistoricCenter = await getDocumentByID(collections.historicCenter, id ?? '');
-      const data: Category[] = await getData(collections.category);
-      setCategories(data);
-      setHistoricCenter(historicCenter);
-      setLoading(false);
-    };
-    init().catch((error) => {
-      console.log(error);
-      backViewHistoricCenter();
-    });
-  }, []);
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -50,6 +38,7 @@ const useEditHistoricCenter = () => {
       nameEnglish: historicCenter?.text.EN.name ?? '',
       categoryID: historicCenter?.category?.id ?? '',
       image: null,
+      position: historicCenter?.position ?? maps.defaultPosition,
     },
     validationSchema: yup.object({
       nameSpanish: yup
@@ -100,6 +89,7 @@ const useEditHistoricCenter = () => {
               id: categorySelected?.id ?? '',
               text: categorySelected?.text ?? {},
             },
+            position: values.position ?? maps.defaultPosition,
           };
           await updateDocumentByID(collections.historicCenter, id ?? '', editedHistoricCenterWithImage);
           return;
@@ -118,6 +108,7 @@ const useEditHistoricCenter = () => {
             id: categorySelected?.id ?? '',
             text: categorySelected?.text ?? {},
           },
+          position: values.position ?? maps.defaultPosition,
         };
         await updateDocumentByID(collections.historicCenter, id ?? '', editHistoricCenter);
       } catch (error: any) {
@@ -128,6 +119,32 @@ const useEditHistoricCenter = () => {
       }
     },
   });
+
+  const {
+    markerRef,
+    actionRef,
+    eventMarkerHandlers,
+    changeCenter,
+  } = useFormMap({ field: 'position', setFieldValue: formik.setFieldValue, hasInitialPosition: true });
+
+  useEffect(() => {
+    const init = async () => {
+      const historicCenter: HistoricCenter = await getDocumentByID(collections.historicCenter, id ?? '');
+      const data: Category[] = await getData(collections.category);
+      setCategories(data);
+      setHistoricCenter(historicCenter);
+      setLoading(false);
+    };
+    init().catch((error) => {
+      console.log(error);
+      backViewHistoricCenter();
+    });
+  }, []);
+
+  useEffect(() => {
+    changeCenter(formik.values.position)
+  }, [formik.values.position]);
+
   return {
     language,
     loading,
@@ -135,6 +152,9 @@ const useEditHistoricCenter = () => {
     historicCenter,
     categories,
     formik,
+    markerRef,
+    actionRef,
+    eventMarkerHandlers,
   };
 };
 

@@ -14,6 +14,8 @@ import uploadImage from '../../../utils/uploadImage';
 import addDocument from '../../../utils/firebase/firestore/addDocument';
 import getData from '../../../utils/firebase/firestore/getData';
 import Category from '../../category/interfaces/category';
+import useFormMap from '../../../hooks/useFormMap';
+import maps from '../../../constants/maps';
 
 const useAddHistoricCenter = () => {
   const navigate = useNavigate();
@@ -24,21 +26,14 @@ const useAddHistoricCenter = () => {
 
   const goHistoricCenter = () => navigate(RouteNames.index); 
 
-  useEffect(() => {
-    const init = async () => {
-      const data: Category[] = await getData(collections.category);
-      setCategories(data);
-      setLoading(false);
-    };
-    init().then().catch((error) => console.log(error));
-  }, []);
-
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       nameSpanish: '',
       nameEnglish: '',
       categoryID: '',
       image: null,
+      position: maps.defaultPosition,
     },
     validationSchema: yup.object({
       nameSpanish: yup
@@ -86,7 +81,8 @@ const useAddHistoricCenter = () => {
           category: {
             id: categorySelected?.id ?? '',
             text: categorySelected?.text ?? {},
-          }
+          },
+          position: values.position,
         };
         await addDocument(collections.historicCenter, newHistoricCenter);
         goHistoricCenter();
@@ -97,6 +93,27 @@ const useAddHistoricCenter = () => {
       }
     },
   });
+
+  const {
+    markerRef,
+    actionRef,
+    eventMarkerHandlers,
+    currentPositionLoading,
+    changeCenter,
+  } = useFormMap({ field: 'position', setFieldValue: formik.setFieldValue });
+
+  useEffect(() => {
+    const init = async () => {
+      const data: Category[] = await getData(collections.category);
+      setCategories(data);
+      setLoading(false);
+    };
+    init().then().catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    changeCenter(formik.values.position)
+  }, [formik.values.position]);
   
   return {
     loading,
@@ -104,6 +121,10 @@ const useAddHistoricCenter = () => {
     categories,
     goHistoricCenter,
     formik,
+    markerRef,
+    actionRef,
+    eventMarkerHandlers,
+    currentPositionLoading,
   };
 };
 

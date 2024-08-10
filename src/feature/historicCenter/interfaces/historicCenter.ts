@@ -1,3 +1,4 @@
+import { LatLngExpression } from 'leaflet';
 import Content from '../../../interfaces/content';
 import Image from '../../../interfaces/image';
 import CategoryHistoricCenter from './categoryHistoricCenter';
@@ -12,6 +13,7 @@ interface HistoricCenter {
   category: CategoryHistoricCenter;
   image: Image;
   contents?: Content[];
+  position: LatLngExpression;
 }
 
 export default HistoricCenter;

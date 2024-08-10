@@ -13,7 +13,7 @@ interface Props {
 
 const Content = ({ type, text = '', imageSrc = '', alt = '' }: Props) => {
   if( type === contentTypes[0].id) return (
-    <Typography variant="h6" gutterBottom color={colors.primary} fontWeight="bold">
+    <Typography variant="h6" gutterBottom color={colors.primary}>
       {text}
     </Typography>
   );
@@ -28,7 +28,7 @@ const Content = ({ type, text = '', imageSrc = '', alt = '' }: Props) => {
     </Typography>
   );
   return (
-    <Image src={imageSrc} alt={alt} style={{ marginBottom: '1rem'}}/>
+    <Image src={imageSrc} alt={alt} style={{ marginBottom: '0.5rem'}}/>
   );
 };
 

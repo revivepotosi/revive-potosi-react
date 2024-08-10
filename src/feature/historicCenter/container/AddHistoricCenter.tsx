@@ -9,11 +9,22 @@ import buttonsStr from '../../../constants/buttonsStr';
 import validation from '../../../constants/validation';
 import addHistoricCenterStr from '../constants/addHistoricCenterStr';
 import SimpleFormSkeleton from '../../../components/simpleFormSkeleton/SimpleFormSkeleton';
+import FormMap from '../../../components/formMap/FormMap';
 
 const AddHistoricCenter = () => {
-  const { loading, language, goHistoricCenter, categories, formik } = useAddHistoricCenter();
+  const {
+    loading,
+    language,
+    goHistoricCenter,
+    categories,
+    formik,
+    markerRef,
+    actionRef,
+    eventMarkerHandlers,
+    currentPositionLoading,
+  } = useAddHistoricCenter();
 
-  if (loading) return (<SimpleFormSkeleton />);
+  if (loading || currentPositionLoading) return (<SimpleFormSkeleton />);
 
   return (
     <GeneralContainer
@@ -95,7 +106,12 @@ const AddHistoricCenter = () => {
               }}
               fullWidth
             />
-            <FormControl required fullWidth error={formik.touched.categoryID && Boolean(formik.errors.categoryID)}>
+            <FormControl
+              required
+              fullWidth
+              error={formik.touched.categoryID && Boolean(formik.errors.categoryID)}
+              sx={{ marginBottom: '1rem'}}
+            >
               <InputLabel id="categoryID-select-label">
                 {formStr[language.prefix].category}
               </InputLabel>
@@ -116,6 +132,19 @@ const AddHistoricCenter = () => {
               </Select>
               { formik.touched.categoryID ? <FormHelperText>{formik.errors.categoryID}</FormHelperText> : null }
             </FormControl>
+            <Box>
+              <InputLabel required id="map-label" sx={{ marginBottom: '0.5rem' }}>
+                {formStr[language.prefix].location}
+              </InputLabel>
+              <FormMap
+                id="map-label"
+                position={formik.values.position}
+                draggable
+                markerRef={markerRef}
+                actionRef={actionRef}
+                eventHandlers={eventMarkerHandlers}
+              />
+            </Box>
           </Box>
           <Box display="flex" justifyContent="flex-end" gap="1rem">
             <Button

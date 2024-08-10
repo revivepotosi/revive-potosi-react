@@ -8,6 +8,8 @@ import CardContainer from '../../../components/cardContainer/CardContainer';
 import Image from '../../../components/image/Image';
 import useViewHistoricCenter from '../hooks/useViewHistoricCenter';
 import contentHistoricCenterStr from '../constants/contentHistoricCenterStr';
+import ViewMap from '../../../components/viewMap/ViewMap';
+import maps from '../../../constants/maps';
 
 const ViewHistoricCenter = () => {
   const {
@@ -71,7 +73,15 @@ const ViewHistoricCenter = () => {
               <Typography variant='body1' gutterBottom>
                 {getViewMediaField(formStr[language.prefix].image)}
               </Typography>
-              <Image src={historicCenter?.image.url ?? ''} alt={`${historicCenter?.text[language.prefix].name ?? ''} historic center backgroud`} />
+              <Image
+                src={historicCenter?.image.url ?? ''}
+                alt={`${historicCenter?.text[language.prefix].name ?? ''} historic center backgroud`}
+                style={{ marginBottom: '0.5rem' }}
+              />
+              <Typography variant='body1' gutterBottom>
+                {getViewMediaField(formStr[language.prefix].location)}
+              </Typography>
+              <ViewMap position={historicCenter?.position ?? maps.defaultPosition}/>
             </Box>
           </Box>
         </CardContainer>

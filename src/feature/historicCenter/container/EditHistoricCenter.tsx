@@ -10,6 +10,7 @@ import formStr from '../../../constants/formStr';
 import buttonsStr from '../../../constants/buttonsStr';
 import validation from '../../../constants/validation';
 import editHistoricCenterStr from '../constants/editHistoricCenterStr';
+import FormMap from '../../../components/formMap/FormMap';
 
 const EditHistoricCenter = () => {
   const {
@@ -19,6 +20,9 @@ const EditHistoricCenter = () => {
     historicCenter,
     categories,
     formik,
+    markerRef,
+    actionRef,
+    eventMarkerHandlers,
   } = useEditHistoricCenter();
 
   if (loading) return <SimpleFormSkeleton />;
@@ -123,6 +127,19 @@ const EditHistoricCenter = () => {
               </Select>
               { formik.touched.categoryID ? <FormHelperText>{formik.errors.categoryID}</FormHelperText> : null }
             </FormControl>
+            <Box>
+              <InputLabel required id="map-label" sx={{ marginBottom: '0.5rem' }}>
+                {formStr[language.prefix].location}
+              </InputLabel>
+              <FormMap
+                id="map-label"
+                position={formik.values.position}
+                draggable
+                markerRef={markerRef}
+                actionRef={actionRef}
+                eventHandlers={eventMarkerHandlers}
+              />
+            </Box>
           </Box>
           <Box display="flex" justifyContent="flex-end" gap="1rem">
             <Button

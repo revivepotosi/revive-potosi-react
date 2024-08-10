@@ -8,6 +8,7 @@ const formStr: Record<string, any> = {
     type: 'Tipo',
     alt: 'Texto alternativo',
     category: 'Categoría',
+    location: 'Ubicación',
   },
   EN: {
     englishTexts: 'Texts in english',
@@ -18,6 +19,7 @@ const formStr: Record<string, any> = {
     type: 'Type',
     alt: 'Alternative text',
     category: 'Category',
+    location: 'Location',
   },
 };
   

@@ -9,6 +9,9 @@ import CardContainer from '../../../components/cardContainer/CardContainer';
 import colors from '../../../style/colors';
 import Content from '../../../components/content/Content';
 import { isImageContent, isTextContent } from '../../../utils/functions';
+import formStr from '../../../constants/formStr';
+import ViewMap from '../../../components/viewMap/ViewMap';
+import maps from '../../../constants/maps';
 
 interface Props {
   isAdmin?: boolean;
@@ -64,20 +67,24 @@ const ContentHistoricCenter = ({ isAdmin = false }: Props) => {
         ) : null}
         <CardContainer sx={{ marginTop: '1rem'}}>
           <>
-            <Typography variant='h6' sx={{ marginBottom: '0.5rem', color: colors.primary, fontWeight: 'bold'}}>
+            <Typography variant="h6" gutterBottom fontWeight="bold" sx={{ color: colors.primary }}>
               {historicCenter?.text[language.prefix].name}
             </Typography>
-            <Typography variant='subtitle1' sx={{ marginBottom: '0.5rem', color: colors.primary, fontWeight: 'bold'}}>
+            <Typography variant="subtitle1" gutterBottom fontWeight="bold" sx={{ color: colors.primary }}>
               {historicCenter?.category.text[language.prefix].name}
             </Typography>
             {
               !(historicCenter?.contents) || (Array.isArray(historicCenter.contents) && historicCenter.contents.length === 0) ?
               (
-                <Alert variant="filled" severity="info" sx={{ marginTop: '1rem' }}>
+                <Alert variant="filled" severity="info" sx={{ marginY: '0.5rem' }}>
                   { contentHistoricCenterStr[language.prefix].emptyMessage }
                 </Alert>
               ) :  renderContent(historicCenter.contents)
             }
+            <Typography variant="subtitle2" gutterBottom sx={{ color: colors.primary }}>
+              {formStr[language.prefix].location}
+            </Typography>
+            <ViewMap position={historicCenter?.position ?? maps.defaultPosition}/>
           </>
         </CardContainer>
       </>
