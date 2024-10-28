@@ -21,6 +21,7 @@ import ContentHistoricCenter from '../feature/historicCenter/container/ContentHi
 import ViewHistoricCenter from '../feature/historicCenter/container/ViewHistoricCenter';
 import EditHistoricCenter from '../feature/historicCenter/container/EditHistoricCenter';
 import AddContentInfo from '../feature/info/container/AddContentInfo';
+import ManageContentHistoricCenter from '../feature/historicCenter/container/ManageContentHistoricCenter';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -52,6 +53,10 @@ const Navigation = () => {
               <Route path={`${RouteNames.content}/${RouteNames.add}`} element={<AddContentInfo />} />
             </Route>
             <Route path={RouteNames.historicCenter}>
+              <Route
+                path={`${RouteNames.content}/${RouteNames.manage}/${RouteNames.id}`}
+                element={<ManageContentHistoricCenter />}
+              />
               <Route path={RouteNames.add} element={<AddHistoricCenter />} />
               <Route path={`${RouteNames.content}/${RouteNames.add}/${RouteNames.id}`} element={<AddContentHistoricCenter />} />
               <Route path={`${RouteNames.edit}/${RouteNames.id}`} element={<EditHistoricCenter />} />

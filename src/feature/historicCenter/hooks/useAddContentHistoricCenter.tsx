@@ -8,9 +8,10 @@ const useAddContentHistoricCenter = () => {
   const { id } = useParams();
   const language = useSelector((state: RootState) => state.language.language);
 
-  const backToContentHistoricCenter = () => navigate(`/${RouteNames.historicCenter}/${RouteNames.content}/${id}`); 
+  const backToManageContentHistoricCenter =
+    () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.content}/${RouteNames.manage}/${id}`); 
   
-  return { id, language, backToContentHistoricCenter };
+  return { id, language, backToManageContentHistoricCenter };
 };
 
 export default useAddContentHistoricCenter;

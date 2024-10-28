@@ -4,14 +4,14 @@ import collections from '../../../constants/collections';
 import addContentHistoricCenterStr from '../constants/addContentHistoricCenterStr';
 
 const AddContentHistoricCenter = () => {
-  const { id, language, backToContentHistoricCenter } = useAddContentHistoricCenter();
+  const { id, language, backToManageContentHistoricCenter } = useAddContentHistoricCenter();
   return (
     <AddContent
       id={id}
       type={collections.historicCenter}
       title={addContentHistoricCenterStr[language.prefix].title}
       backButtonTitle={addContentHistoricCenterStr[language.prefix].backButton}
-      backButtonOnClick={backToContentHistoricCenter}
+      backButtonOnClick={backToManageContentHistoricCenter}
     /> 
   );
 };

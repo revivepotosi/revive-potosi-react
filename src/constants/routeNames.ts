@@ -7,6 +7,7 @@ const RouteNames = {
   info: 'info',
   historicCenter: 'historic-center',
   content: 'content',
+  manage: 'manage',
   index: '/',
   add: 'add',
   edit: 'edit',

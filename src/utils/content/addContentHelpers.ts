@@ -5,10 +5,7 @@ import addDocument from '../firebase/firestore/addDocument';
 import Info from '../../feature/info/interface/info';
 import updateDocumentByID from '../firebase/firestore/updateDocumentByID';
 import HistoricCenter from '../../feature/historicCenter/interfaces/historicCenter';
-
-const isHistoricCenter = (type: string) => type === collections.historicCenter;
-
-const getImagePath = (type: string, id?: string) => isHistoricCenter(type) ? `${collections.historicCenter}/content/${id}` : collections.info;
+import { isHistoricCenter } from '../functions';
 
 const addInfoContent = async (newContent: Content, infos: Info[]) => {
   if (infos.length === 0) {
@@ -55,8 +52,4 @@ const addContent = async (content: Content, type: string, object: HistoricCenter
   }
 };
 
-export {
-  isHistoricCenter,
-  getImagePath,
-  addContent,
-};
+export { addContent };
