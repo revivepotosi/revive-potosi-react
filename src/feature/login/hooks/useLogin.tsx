@@ -5,9 +5,7 @@ import useSingin from '../../../hooks/useSingin';
 import RouteNames from '../../../constants/routeNames';
 import { RootState } from '../../../app/store';
 import formValidationStr from '../../../constants/formValidationStr';
-
-const isEmail = (email: string) =>
-  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+import { isEmail } from '../../../utils/form';
 
 const useLogin = () => {
   const language = useSelector((state: RootState) => state.language.language);
@@ -69,6 +67,7 @@ const useLogin = () => {
   };
 
   const goHome = () => { navigate(RouteNames.index) };
+  const goResetPassword = () => { navigate(`/${RouteNames.resetPassword}`) };
 
   return {
     loginData,
@@ -83,6 +82,7 @@ const useLogin = () => {
     showErrorAlert,
     goHome,
     language,
+    goResetPassword,
   };
 };
 

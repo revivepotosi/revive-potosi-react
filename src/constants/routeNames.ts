@@ -3,6 +3,7 @@ const RouteNames = {
   profile: 'profile',
   user: 'user',
   login: 'login',
+  resetPassword: 'reset-password',
   category: 'category',
   info: 'info',
   historicCenter: 'historic-center',
