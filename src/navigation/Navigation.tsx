@@ -45,7 +45,7 @@ const Navigation = () => {
         </Route>
         <Route path={RouteNames.admin} element={<RequireAuth isAuthenticated={isAuthenticated} />}>
           <Route element={<AppBarContainer />}>
-            <Route path={RouteNames.user} element={<User />} />
+            {/* <Route path={RouteNames.user} element={<User />} /> */}
             <Route path={RouteNames.category}>
               <Route index element={<Category />} />
               <Route path={RouteNames.add} element={<AddCategory />} />

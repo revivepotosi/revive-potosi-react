@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ChurchOutlinedIcon from '@mui/icons-material/ChurchOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+// import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { auth } from '../../../app/firebase';
 import { RootState } from '../../../app/store';
@@ -45,12 +45,12 @@ const useAppBarLeft = () => {
         icon: <FilterAltOutlinedIcon />,
         onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.category}`),
       },
-      {
-        hide: Boolean(!auth.currentUser),
-        name: appBarLeftStr[language.prefix].user,
-        icon: <PersonOutlinedIcon />,
-        onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.user}`),
-      },
+      // {
+      //   hide: Boolean(!auth.currentUser),
+      //   name: appBarLeftStr[language.prefix].user,
+      //   icon: <PersonOutlinedIcon />,
+      //   onClick: getOnClick(`/${RouteNames.admin}/${RouteNames.user}`),
+      // },
       {
         name: appBarLeftStr[language.prefix].info,
         icon: <InfoOutlinedIcon />,
