@@ -9,6 +9,7 @@ const formStr: Record<string, any> = {
     alt: 'Texto alternativo',
     category: 'Categoría',
     location: 'Ubicación',
+    email: 'Correo',
   },
   EN: {
     englishTexts: 'Texts in english',
@@ -20,6 +21,7 @@ const formStr: Record<string, any> = {
     alt: 'Alternative text',
     category: 'Category',
     location: 'Location',
+    email: 'Email',
   },
 };
   

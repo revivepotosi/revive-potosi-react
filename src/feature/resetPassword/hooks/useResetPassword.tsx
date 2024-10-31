@@ -1,16 +1,18 @@
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import RouteNames from '../../../constants/routeNames';
 import { RootState } from '../../../app/store';
 import formValidationStr from '../../../constants/formValidationStr';
 import { isEmail } from '../../../utils/form';
+import { closeLoader, openLoader } from '../../../redux/generalSlice';
 
 const useResetPassword = () => {
   const language = useSelector((state: RootState) => state.language.language);
   const auth = getAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [emailHelperText, setEmailHelperText] = useState('');
@@ -37,10 +39,13 @@ const useResetPassword = () => {
     e.preventDefault();
     if (validateEmail()) {
       try {
+        dispatch(openLoader());
         await sendPasswordResetEmail(auth, email);
         setShowSuccessAlert(true);
       } catch (error: any) {
         setShowErrorAlert(true);
+      } finally {
+        dispatch(closeLoader());
       }
     }
   };
