@@ -24,6 +24,8 @@ import AddContentInfo from '../feature/info/container/AddContentInfo';
 import ManageContentHistoricCenter from '../feature/historicCenter/container/ManageContentHistoricCenter';
 import ManageContentInfo from '../feature/info/container/ManageContentInfo';
 import ResetPassword from '../feature/resetPassword/container/ResetPassword';
+import ManageExperienceHistoricCenter from '../feature/historicCenter/container/ManageExperienceHistoricCenter';
+import AddExperienceHistoricCenter from '../feature/historicCenter/container/AddExperienceHistoricCenter';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -57,6 +59,14 @@ const Navigation = () => {
               <Route path={`${RouteNames.content}/${RouteNames.manage}`} element={<ManageContentInfo />} />
             </Route>
             <Route path={RouteNames.historicCenter}>
+              <Route
+                path={`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.experience}/${RouteNames.manage}/${RouteNames.id}`}
+                element={<ManageExperienceHistoricCenter />}
+              />
+              <Route
+                path={`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.experience}/${RouteNames.add}/${RouteNames.id}`}
+                element={<AddExperienceHistoricCenter />}
+              />
               <Route
                 path={`${RouteNames.content}/${RouteNames.manage}/${RouteNames.id}`}
                 element={<ManageContentHistoricCenter />}

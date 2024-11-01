@@ -8,6 +8,7 @@ const RouteNames = {
   info: 'info',
   historicCenter: 'historic-center',
   content: 'content',
+  experience: 'experience',
   manage: 'manage',
   index: '/',
   add: 'add',

@@ -10,6 +10,8 @@ const formStr: Record<string, any> = {
     category: 'Categoría',
     location: 'Ubicación',
     email: 'Correo',
+    activator: 'Activador',
+    model: 'Modelo',
   },
   EN: {
     englishTexts: 'Texts in english',
@@ -22,6 +24,8 @@ const formStr: Record<string, any> = {
     category: 'Category',
     location: 'Location',
     email: 'Email',
+    activator: 'Activator',
+    model: 'Model',
   },
 };
   
