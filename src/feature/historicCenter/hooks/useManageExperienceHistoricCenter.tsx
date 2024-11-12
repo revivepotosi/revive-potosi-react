@@ -24,7 +24,7 @@ const useManageExperienceHistoricCenter = () => {
   
   useEffect(() => {
     const init = async () => {
-      const data: Experience[] = await getExperiences(collections.experience, id ?? '');
+      const data: Experience[] = await getExperiences(id ?? '');
       setExperiences(data);
       setLoading(false);
     };
