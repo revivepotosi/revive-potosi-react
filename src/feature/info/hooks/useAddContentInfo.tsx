@@ -6,11 +6,11 @@ import RouteNames from '../../../constants/routeNames';
 const useAddContentInfo = () => {
   const navigate = useNavigate();
   const language = useSelector((state: RootState) => state.language.language);
-  const backToInfo = () => navigate(`/${RouteNames.info}`); 
+  const backToManageContent = () => navigate(`/${RouteNames.admin}/${RouteNames.info}/${RouteNames.content}/${RouteNames.manage}`); 
   
   return {
     language,
-    backToInfo,
+    backToManageContent,
   };
 };
 

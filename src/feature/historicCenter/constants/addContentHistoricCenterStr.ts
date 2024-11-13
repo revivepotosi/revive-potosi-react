@@ -1,11 +1,11 @@
 const addContentHistoricCenterStr: Record<string, any> = {
   ES: {
     title: 'Agregar contenido',
-    backButton: 'Volver a contenido',
+    backButton: 'Volver a gestionar contenido',
   },
   EN: {
     title: 'Add content',
-    backButton: 'Back to content',
+    backButton: 'Back to manage content',
   },
 };
 

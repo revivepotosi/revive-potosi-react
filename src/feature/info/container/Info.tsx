@@ -19,7 +19,7 @@ const Info = ({ isAdmin = false }: Props) => {
     language,
     loading,
     infos,
-    goAddContentInfo,
+    goManageContent,
   } = useInfo();
 
   if (loading) return (
@@ -47,8 +47,8 @@ const Info = ({ isAdmin = false }: Props) => {
     >
       <>
         { isAdmin ? (
-          <Button variant="contained" onClick={goAddContentInfo} sx={{ marginRight: '0.5rem' }}>
-            {infoStr[language.prefix].addButton}
+          <Button variant="contained" onClick={goManageContent}>
+            {infoStr[language.prefix].manageContent}
           </Button>
         ) : null}
         { hasInfoContent(infos) ?

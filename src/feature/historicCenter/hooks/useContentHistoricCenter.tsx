@@ -16,7 +16,10 @@ const useContentHistoricCenter = () => {
 
   const backToHistoricCenters = () => navigate(RouteNames.index);
   const goViewHistoricCenter = () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${id}`);
-  const goAddContentHistoricCenter = () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.content}/${RouteNames.add}/${id}`);
+  const goManageContentHistoricCenter =
+    () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.content}/${RouteNames.manage}/${id}`);
+  const goManageExperienceHistoricCenter =
+    () => navigate(`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.experience}/${RouteNames.manage}/${id}`);
 
   useEffect(() => {
     const init = async () => {
@@ -36,7 +39,8 @@ const useContentHistoricCenter = () => {
     historicCenter,
     backToHistoricCenters,
     goViewHistoricCenter,
-    goAddContentHistoricCenter,
+    goManageContentHistoricCenter,
+    goManageExperienceHistoricCenter,
   };
 };
 

@@ -21,6 +21,11 @@ import ContentHistoricCenter from '../feature/historicCenter/container/ContentHi
 import ViewHistoricCenter from '../feature/historicCenter/container/ViewHistoricCenter';
 import EditHistoricCenter from '../feature/historicCenter/container/EditHistoricCenter';
 import AddContentInfo from '../feature/info/container/AddContentInfo';
+import ManageContentHistoricCenter from '../feature/historicCenter/container/ManageContentHistoricCenter';
+import ManageContentInfo from '../feature/info/container/ManageContentInfo';
+import ResetPassword from '../feature/resetPassword/container/ResetPassword';
+import ManageExperienceHistoricCenter from '../feature/historicCenter/container/ManageExperienceHistoricCenter';
+import AddExperienceHistoricCenter from '../feature/historicCenter/container/AddExperienceHistoricCenter';
 
 const Navigation = () => {
   const { isAuthenticated, isLoading } = useLocalNavigation();
@@ -38,10 +43,11 @@ const Navigation = () => {
         </Route>
         <Route element={<NoRequireAuth isAuthenticated={isAuthenticated} />}>
           <Route path={RouteNames.login} element={<Login />} />
+          <Route path={RouteNames.resetPassword} element={<ResetPassword />} />
         </Route>
         <Route path={RouteNames.admin} element={<RequireAuth isAuthenticated={isAuthenticated} />}>
           <Route element={<AppBarContainer />}>
-            <Route path={RouteNames.user} element={<User />} />
+            {/* <Route path={RouteNames.user} element={<User />} /> */}
             <Route path={RouteNames.category}>
               <Route index element={<Category />} />
               <Route path={RouteNames.add} element={<AddCategory />} />
@@ -50,8 +56,21 @@ const Navigation = () => {
             </Route>
             <Route path={RouteNames.info}>
               <Route path={`${RouteNames.content}/${RouteNames.add}`} element={<AddContentInfo />} />
+              <Route path={`${RouteNames.content}/${RouteNames.manage}`} element={<ManageContentInfo />} />
             </Route>
             <Route path={RouteNames.historicCenter}>
+              <Route
+                path={`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.experience}/${RouteNames.manage}/${RouteNames.id}`}
+                element={<ManageExperienceHistoricCenter />}
+              />
+              <Route
+                path={`/${RouteNames.admin}/${RouteNames.historicCenter}/${RouteNames.experience}/${RouteNames.add}/${RouteNames.id}`}
+                element={<AddExperienceHistoricCenter />}
+              />
+              <Route
+                path={`${RouteNames.content}/${RouteNames.manage}/${RouteNames.id}`}
+                element={<ManageContentHistoricCenter />}
+              />
               <Route path={RouteNames.add} element={<AddHistoricCenter />} />
               <Route path={`${RouteNames.content}/${RouteNames.add}/${RouteNames.id}`} element={<AddContentHistoricCenter />} />
               <Route path={`${RouteNames.edit}/${RouteNames.id}`} element={<EditHistoricCenter />} />

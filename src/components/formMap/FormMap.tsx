@@ -1,8 +1,10 @@
 import { LegacyRef, MutableRefObject } from 'react';
-import { LatLngExpression, Marker as LeafletMarket, LeafletEventHandlerFnMap } from 'leaflet';
+import { LatLngExpression, Marker as LeafletMarket, LeafletEventHandlerFnMap, Icon } from 'leaflet';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { Box, SxProps, Theme } from '@mui/material';
 import ActionsMap from './ActionsMap';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 interface Props {
   position: LatLngExpression;
@@ -12,7 +14,16 @@ interface Props {
   eventHandlers?: LeafletEventHandlerFnMap;
   actionRef?: MutableRefObject<any>;
   markerRef?: LegacyRef<LeafletMarket>;
-};
+}
+
+const defaultIcon = new Icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 const FormMap = ({ position, sx, id, draggable, eventHandlers, markerRef, actionRef }: Props) => {
   return (
@@ -30,7 +41,7 @@ const FormMap = ({ position, sx, id, draggable, eventHandlers, markerRef, action
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker ref={markerRef} position={position} draggable={draggable} eventHandlers={eventHandlers} />
+        <Marker ref={markerRef} position={position} draggable={draggable} eventHandlers={eventHandlers} icon={defaultIcon} />
         <ActionsMap ref={actionRef} />
       </MapContainer>
     </Box>

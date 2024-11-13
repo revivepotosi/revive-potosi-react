@@ -14,7 +14,7 @@ import validation from '../../constants/validation';
 
 interface Props {
   id?: string;
-  type: string;
+  type?: string;
   title: string;
   backButtonTitle: string;
   backButtonOnClick: () => void;

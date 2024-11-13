@@ -1,11 +1,22 @@
-import { LatLngExpression } from 'leaflet';
+import { Icon, LatLngExpression } from 'leaflet';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { Box, SxProps, Theme } from '@mui/material';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 interface Props {
   position: LatLngExpression;
   sx?: SxProps<Theme>;
-};
+}
+
+const defaultIcon = new Icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 const ViewMap = ({ position, sx }: Props) => {
   const openPosition = (lat: number, lng: number) => {
@@ -36,6 +47,7 @@ const ViewMap = ({ position, sx }: Props) => {
               openPosition(e.latlng.lat, e.latlng.lng);
             },
           }}
+          icon={defaultIcon}
         />
       </MapContainer>
     </Box>

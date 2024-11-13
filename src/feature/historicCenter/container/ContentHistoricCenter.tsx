@@ -24,7 +24,8 @@ const ContentHistoricCenter = ({ isAdmin = false }: Props) => {
     historicCenter,
     backToHistoricCenters,
     goViewHistoricCenter,
-    goAddContentHistoricCenter,
+    goManageContentHistoricCenter,
+    goManageExperienceHistoricCenter,
   } = useContentHistoricCenter();
 
   if (loading) return (
@@ -57,10 +58,13 @@ const ContentHistoricCenter = ({ isAdmin = false }: Props) => {
       <>
         { isAdmin ? (
           <Box sx={{ whiteSpace: 'nowrap', overflow: 'auto' }}>
-            <Button variant="contained" onClick={goAddContentHistoricCenter} sx={{ marginRight: '0.5rem' }}>
-              {contentHistoricCenterStr[language.prefix].addButton}
+            <Button variant="contained" onClick={goManageContentHistoricCenter} sx={{ marginRight: '0.5rem' }}>
+              {contentHistoricCenterStr[language.prefix].manageContent}
             </Button>
-            <Button variant="contained" color="secondary" onClick={goViewHistoricCenter}>
+            <Button variant="contained" color="secondary" onClick={goManageExperienceHistoricCenter} sx={{ marginRight: '0.5rem' }}>
+              {contentHistoricCenterStr[language.prefix].manageExperience}
+            </Button>
+            <Button variant="outlined" onClick={goViewHistoricCenter}>
               {contentHistoricCenterStr[language.prefix].viewButton}
             </Button>
           </Box>

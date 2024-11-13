@@ -13,13 +13,14 @@ const useInfo = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [infos, setInfos] = useState<Info[]>([]);
 
-  const goAddContentInfo = () => navigate(`/${RouteNames.admin}/${RouteNames.info}/${RouteNames.content}/${RouteNames.add}`);
   const goHome = () => navigate(RouteNames.index);
+  const goManageContent = () => navigate(`/${RouteNames.admin}/${RouteNames.info}/${RouteNames.content}/${RouteNames.manage}`);
 
   useEffect(() => {
     const init = async () => {
       const data: Info[] = await getData(collections.info);
       setInfos(data && Array.isArray(data) && data.length > 0 ? data : []);
+      console.log(data);
       setLoading(false);
     };
     init().catch((error) => {
@@ -32,7 +33,7 @@ const useInfo = () => {
     language,
     loading,
     infos,
-    goAddContentInfo,
+    goManageContent,
   };
 };
 

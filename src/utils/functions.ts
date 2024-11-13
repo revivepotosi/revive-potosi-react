@@ -1,4 +1,5 @@
 import buttonsStr from '../constants/buttonsStr';
+import collections from '../constants/collections';
 import contentTypes from '../constants/contentTypes';
 import generalStr from '../constants/generalStr';
 
@@ -18,6 +19,11 @@ const isParagraphContent = (type: string): boolean => type === contentTypes[3].i
 
 const getDeleteTitle = (lenguagePrefix: string, objectToDelete: string) => `${generalStr[lenguagePrefix].deleteTitle} ${objectToDelete}?`;
 
+const isHistoricCenter = (type: string) => type === collections.historicCenter;
+
+const getImagePath = (type: string, id?: string) => isHistoricCenter(type) ? `${collections.historicCenter}/content/${id}` : collections.info;
+
+
 export {
     getViewField,
     getViewMediaField,
@@ -27,4 +33,6 @@ export {
     isImageContent,
     isParagraphContent,
     getDeleteTitle,
+    isHistoricCenter,
+    getImagePath,
 };

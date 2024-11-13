@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { RootState } from '../app/store';
 import formValidationStr from '../constants/formValidationStr';
 import { closeLoader, openLoader } from '../redux/generalSlice';
-import { isImageContent, isTextContent } from '../utils/functions';
+import { getImagePath, isHistoricCenter, isImageContent, isTextContent } from '../utils/functions';
 import Info from '../feature/info/interface/info';
 import HistoricCenter from '../feature/historicCenter/interfaces/historicCenter';
 import collections from '../constants/collections';
@@ -14,7 +14,7 @@ import getData from '../utils/firebase/firestore/getData';
 import Content, { ContentType } from '../interfaces/content';
 import uploadImage from '../utils/uploadImage';
 import validation from '../constants/validation';
-import { addContent, getImagePath, isHistoricCenter } from '../utils/content/addContentHelpers';
+import { addContent } from '../utils/content/addContentHelpers';
 
 interface Props {
   id?: string;
