@@ -2,7 +2,7 @@ const viewCategoryStr: Record<string, any> = {
   ES: {
     backButton: 'Volver a categorías',
     editButton: 'Editar',
-    errorMessageHistoricCenter: 'No se puede eliminar, existen centros historicos asociados.',
+    errorMessageHistoricCenter: 'No se puede eliminar, existen centros históricos asociados.',
   },
   EN: {
     backButton: 'Back to Categories',

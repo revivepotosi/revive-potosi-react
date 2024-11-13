@@ -2,6 +2,7 @@ import FileFirebase from './fileFirebase';
 
 interface Texts {
   name: string;
+  description: string;
 }
 
 interface Experience {

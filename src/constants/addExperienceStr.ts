@@ -2,7 +2,7 @@ const addExperienceStr: Record<string, any> = {
   ES: {
     title: 'Agregar experiencia',
     backButton: 'Volver a gestionar experiencias',
-    advise: 'Se recomienda tener como maximo 5 experiencias por centro historico para optimizar el rendimiento.',
+    advise: 'Se recomienda tener como maximo 5 experiencias por centro histórico para optimizar el rendimiento.',
   },
   EN: {
     title: 'Add experiences',

@@ -57,6 +57,22 @@ const AddExperience = ({
               onBlur={formik.handleBlur}
               error={formik.touched.nameSpanish && Boolean(formik.errors.nameSpanish)}
               helperText={formik.touched.nameSpanish && formik.errors.nameSpanish}
+              sx={{ marginBottom: '1rem'}}
+              fullWidth
+            />
+            <TextField
+              required
+              id="descriptionSpanish"
+              type="text"
+              name="descriptionSpanish"
+              label={formStr[language.prefix].description}
+              variant="outlined"
+              autoComplete="off"
+              value={formik.values.descriptionSpanish}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.descriptionSpanish && Boolean(formik.errors.descriptionSpanish)}
+              helperText={formik.touched.descriptionSpanish && formik.errors.descriptionSpanish}
               fullWidth
             />
           </Box>
@@ -77,6 +93,22 @@ const AddExperience = ({
               onBlur={formik.handleBlur}
               error={formik.touched.nameEnglish && Boolean(formik.errors.nameEnglish)}
               helperText={formik.touched.nameEnglish && formik.errors.nameEnglish}
+              sx={{ marginBottom: '1rem'}}
+              fullWidth
+            />
+            <TextField
+              required
+              id="descriptionEnglish"
+              type="text"
+              name="descriptionEnglish"
+              label={formStr[language.prefix].description}
+              variant="outlined"
+              autoComplete="off"
+              value={formik.values.descriptionEnglish}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.descriptionEnglish && Boolean(formik.errors.descriptionEnglish)}
+              helperText={formik.touched.descriptionEnglish && formik.errors.descriptionEnglish}
               fullWidth
             />
           </Box>

@@ -12,6 +12,7 @@ const formStr: Record<string, any> = {
     email: 'Correo',
     activator: 'Activador',
     model: 'Modelo',
+    description: 'Descripción',
   },
   EN: {
     englishTexts: 'Texts in english',
@@ -26,6 +27,7 @@ const formStr: Record<string, any> = {
     email: 'Email',
     activator: 'Activator',
     model: 'Model',
+    description: 'Description',
   },
 };
   

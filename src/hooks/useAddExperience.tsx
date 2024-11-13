@@ -23,7 +23,9 @@ const useAddExperience = ({ historicCenterID, onBack }: Props) => {
   const formik = useFormik({
     initialValues: {
       nameSpanish: '',
+      descriptionSpanish: '',
       nameEnglish: '',
+      descriptionEnglish: '',
       activator: null,
       model: null,
     },
@@ -31,7 +33,13 @@ const useAddExperience = ({ historicCenterID, onBack }: Props) => {
       nameSpanish: yup
         .string()
         .required(formValidationStr[language.prefix].requiredField),
+      descriptionSpanish: yup
+        .string()
+        .required(formValidationStr[language.prefix].requiredField),
       nameEnglish: yup
+        .string()
+        .required(formValidationStr[language.prefix].requiredField),
+      descriptionEnglish: yup
         .string()
         .required(formValidationStr[language.prefix].requiredField),
       activator: yup
@@ -79,9 +87,11 @@ const useAddExperience = ({ historicCenterID, onBack }: Props) => {
           text: {
             ES: {
               name: values.nameSpanish,
+              description: values.descriptionSpanish,
             },
             EN: {
               name: values.nameEnglish,
+              description: values.descriptionEnglish,
             },
           },
           activator,
